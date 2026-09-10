@@ -9,6 +9,7 @@ interface DockProps {
   children: ReactNode;
   magnification?: number;
   distance?: number;
+  orientation?: "horizontal" | "vertical";
 }
 
 interface DockIconProps {
@@ -24,22 +25,27 @@ const ICON_SIZE_RATIO = 0.5;
 const SPRING = { mass: 0.1, stiffness: 150, damping: 12 };
 
 interface DockContextValue {
-  mouseX: MotionValue<number>;
+  pointerPosition: MotionValue<number>;
   magnification: number;
   distance: number;
+  orientation: "horizontal" | "vertical";
 }
 
 const DockContext = createContext<DockContextValue | null>(null);
 
-const Dock = ({ className, children, magnification = DEFAULT_MAGNIFICATION, distance = DEFAULT_DISTANCE }: DockProps) => {
-  const mouseX = useMotionValue(Infinity);
+const Dock = ({ className, children, magnification = DEFAULT_MAGNIFICATION, distance = DEFAULT_DISTANCE, orientation = "horizontal" }: DockProps) => {
+  const pointerPosition = useMotionValue(Infinity);
 
   return (
-    <DockContext.Provider value={{ mouseX, magnification, distance }}>
+    <DockContext.Provider value={{ pointerPosition, magnification, distance, orientation }}>
       <motion.div
-        onMouseMove={(e) => mouseX.set(e.pageX)}
-        onMouseLeave={() => mouseX.set(Infinity)}
-        className={cn("mx-auto w-max h-full flex items-end justify-center overflow-visible rounded-full border", className)}
+        onMouseMove={(e) => pointerPosition.set(orientation === "vertical" ? e.clientY : e.clientX)}
+        onMouseLeave={() => pointerPosition.set(Infinity)}
+        className={cn(
+          "mx-auto flex w-max overflow-visible rounded-full border",
+          orientation === "vertical" ? "flex-col items-center justify-center" : "h-full items-end justify-center",
+          className,
+        )}
       >
         {children}
       </motion.div>
@@ -55,11 +61,12 @@ const DockIcon = ({ className, children }: DockIconProps) => {
     throw new Error("DockIcon must be used within a Dock component");
   }
 
-  const { mouseX, magnification, distance } = context;
+  const { pointerPosition, magnification, distance, orientation } = context;
 
-  const distanceCalc = useTransform(mouseX, (val: number) => {
-    const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
-    return val - bounds.x - bounds.width / 2;
+  const distanceCalc = useTransform(pointerPosition, (val: number) => {
+    const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, y: 0, width: 0, height: 0 };
+    const center = orientation === "vertical" ? bounds.y + bounds.height / 2 : bounds.x + bounds.width / 2;
+    return val - center;
   });
 
   const containerSize = useSpring(

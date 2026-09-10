@@ -1,5 +1,7 @@
 "use client";
 
+import { Dock, DockIcon } from "@/components/magicui/dock";
+import { Tooltip, TooltipArrow, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useEffect, useState } from "react";
 import { scrollToSection } from "@/lib/scroll-to-section";
 import { BadgeCheck, BookOpen, BriefcaseBusiness, Code2, GraduationCap, Layers3, Mail, UserRound, UsersRound } from "lucide-react";
@@ -41,23 +43,34 @@ export default function SectionRail() {
   }, []);
 
   return (
-    <aside className="fixed top-1/2 z-20 hidden -translate-y-1/2 print:hidden xl:block" style={{ left: "max(1rem, calc(50% - 650px))" }} aria-label="Section navigation">
-      <nav className="flex flex-col gap-1 rounded-2xl border border-border/60 bg-background/80 p-2 shadow-sm backdrop-blur-xl">
+    <aside className="fixed top-1/2 z-20 hidden -translate-y-1/2 print:hidden min-[1200px]:block" style={{ left: "max(1rem, calc(50% - 650px))" }} aria-label="Section navigation">
+      <nav>
+        <Dock orientation="vertical" magnification={48} distance={84} className="gap-1 rounded-2xl border-border/60 bg-background/80 p-2 shadow-sm backdrop-blur-xl">
         {sections.map(([id, label, Icon]) => (
-          <a
-            key={id}
-            href={`#${id}`}
-            aria-current={active === id ? "true" : undefined}
-            onClick={(event) => {
-              event.preventDefault();
-              scrollToSection(id);
-            }}
-            className={`flex min-h-9 items-center gap-2 rounded-xl px-3 py-2 text-[13px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${active === id ? "bg-primary/10 font-semibold text-primary" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}
-          >
-            <Icon className="size-[18px] shrink-0" aria-hidden="true" />
-            {label}
-          </a>
+          <Tooltip key={id}>
+            <TooltipTrigger asChild>
+              <a
+                href={`#${id}`}
+                aria-label={label}
+                aria-current={active === id ? "true" : undefined}
+                onClick={(event) => {
+                  event.preventDefault();
+                  scrollToSection(id);
+                }}
+                className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              >
+                <DockIcon className={`border p-0 transition-colors ${active === id ? "border-primary/30 bg-primary/10 text-primary" : "border-border bg-background text-muted-foreground hover:bg-muted hover:text-foreground"}`}>
+                  <Icon className="size-full" aria-hidden="true" />
+                </DockIcon>
+              </a>
+            </TooltipTrigger>
+            <TooltipContent side="right" sideOffset={10} className="rounded-xl bg-primary px-3 py-1.5 text-sm text-primary-foreground">
+              <p>{label}</p>
+              <TooltipArrow className="fill-primary" />
+            </TooltipContent>
+          </Tooltip>
         ))}
+        </Dock>
       </nav>
     </aside>
   );

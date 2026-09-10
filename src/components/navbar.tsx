@@ -28,7 +28,7 @@ function DockLink({ href, label, children, external = false, onClick }: { href: 
 export default function Navbar() {
   const openSearch = useCallback(() => window.dispatchEvent(new Event("portfolio:open-search")), []);
   return (
-    <div className="portfolio-dock pointer-events-none fixed inset-x-0 bottom-0 z-30 print:hidden sm:bottom-2" data-floating-control>
+    <div className="portfolio-dock pointer-events-none fixed inset-x-0 bottom-0 z-30 print:hidden sm:bottom-2 min-[1200px]:hidden" data-floating-control>
       <Dock magnification={48} distance={80} className="pointer-events-auto relative z-50 mx-auto flex h-11 w-max gap-1 rounded-full border bg-card/85 p-1 shadow-[0_0_10px_3px] shadow-primary/5 backdrop-blur-3xl">
         <DockLink href="/" label="Home" onClick={(event) => { event.preventDefault(); scrollToTop(); }}><Home className="size-full" /></DockLink>
         <Separator />

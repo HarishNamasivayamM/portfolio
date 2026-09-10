@@ -67,7 +67,7 @@ export const DATA = {
   initials: "HNM",
   role: "Data Engineering   ·   Analytics   ·   ML/AI   ·   MLOps",
   breadth: "Data & Analytics Engineer with 2+ years of experience building modern data platforms and applied AI systems across financial services and manufacturing.",
-  url: "",
+  url: "https://harishmuthuswamy.com",
   location: "Chicago, IL",
   description: "My work spans data pipelines, analytics, machine learning, MLOps, RAG, and agentic workflows, from ingestion and modeling through deployment.",
   summary: "I like the part of data work where things are still messy  -  source systems don't line up, reporting is manual, pipelines are slow, or the business question isn't completely clear yet.\n\nThat's usually where I do my best work: understanding what's actually wrong, getting the data trustworthy, and deciding whether the answer should be a pipeline, analytical model, dashboard, predictive system, or AI application.\n\nMy background spans KYC data pipelines, manufacturing sensor analytics, BI, predictive modeling, and RAG/agentic AI. I work mainly with Python, SQL, and modern data platforms, but I also care about the last mile  -  testing, CI/CD, deployment, documentation, and making the solution something people can use.",

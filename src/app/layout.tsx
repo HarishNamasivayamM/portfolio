@@ -86,10 +86,10 @@ export default function RootLayout({
                 }}
               />
             </div>
-            <div className="relative z-10 mx-auto grid w-full max-w-[1300px] grid-cols-1 xl:grid-cols-[180px_minmax(0,940px)_180px]">
-              <div className="hidden xl:block" aria-hidden="true" />
+            <div className="relative z-10 mx-auto grid w-full max-w-[1300px] grid-cols-1 min-[1200px]:grid-cols-[180px_minmax(0,940px)_180px]">
+              <div className="hidden min-[1200px]:block" aria-hidden="true" />
               <div className="w-full px-6 py-12 pb-36 sm:py-24 sm:pb-40">{children}</div>
-              <div className="hidden xl:block" aria-hidden="true" />
+              <div className="hidden min-[1200px]:block" aria-hidden="true" />
             </div>
             <SectionRail />
             <SearchCommand />
