@@ -7,7 +7,7 @@ import Link from "next/link";
 export default function EducationSection({ entries }: { entries: readonly Education[] }) {
   return (
     <section id="education" className="flex flex-col gap-5">
-      <BlurFade delay={0.04}><h2 className="text-2xl font-bold tracking-tight">Education</h2></BlurFade>
+      <BlurFade delay={0.04}><h2 className="text-xl font-bold tracking-tight">Education</h2></BlurFade>
       <div className="flex flex-col gap-5">
         {entries.map((education, index) => (
           <BlurFade key={`${education.school}-${education.degree}-${education.start}`} delay={0.08 + index * 0.04}>
@@ -18,7 +18,7 @@ export default function EducationSection({ entries }: { entries: readonly Educat
               </Avatar>
               <div className="flex min-w-0 flex-1 flex-col gap-2 sm:flex-row sm:justify-between sm:gap-3">
                 <div className="flex min-w-0 flex-col gap-0.5">
-                  <h3 className="text-base font-semibold leading-snug sm:text-lg">
+                  <h3 className="text-base font-semibold leading-snug">
                     {education.href ? (
                       <Link href={education.href} target="_blank" rel="noopener noreferrer" className="group inline-flex items-start gap-1 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
                         {education.school}<ArrowUpRight className="mt-0.5 size-3.5 shrink-0 text-muted-foreground" aria-hidden="true" />

@@ -19,7 +19,7 @@ export default function CertificationsSection({
     <section id="certifications">
       <div className="flex min-h-0 flex-col gap-y-6">
         <BlurFade delay={delay}>
-          <h2 className="text-2xl font-bold tracking-tight">Certifications</h2>
+          <h2 className="text-xl font-bold tracking-tight">Certifications</h2>
         </BlurFade>
         <div className="flex w-full flex-col gap-2">
           {certifications.map((certification) => (

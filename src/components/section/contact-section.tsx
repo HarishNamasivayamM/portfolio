@@ -20,8 +20,8 @@ export default function ContactSection() {
       <div className="absolute inset-x-0 top-0 h-1/2 overflow-hidden rounded-xl"><FlickeringGrid className="h-full w-full" squareSize={2} gridGap={2} style={{ maskImage: "linear-gradient(to bottom, black, transparent)", WebkitMaskImage: "linear-gradient(to bottom, black, transparent)" }} /></div>
       <div className="relative flex flex-col gap-5">
         <div className="text-center">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Let&apos;s Connect</h2>
-          <p className="mx-auto mt-2 max-w-xl text-base leading-relaxed text-muted-foreground text-balance sm:text-lg">Open to conversations around data engineering, analytics, ML/AI, projects, and opportunities.</p>
+          <h2 className="text-2xl font-bold tracking-tighter sm:text-4xl">Let&apos;s Connect</h2>
+          <p className="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground text-balance sm:text-base">Open to conversations around data engineering, analytics, ML/AI, projects, and opportunities.</p>
           <Link href={conversationHref} target={DATA.contact.scheduleUrl ? "_blank" : undefined} rel={DATA.contact.scheduleUrl ? "noopener noreferrer" : undefined} className="mt-4 inline-flex min-h-10 items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Start a Conversation</Link>
         </div>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">

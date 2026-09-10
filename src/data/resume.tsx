@@ -2,6 +2,7 @@ import { Icons } from "@/components/icons";
 import { BarChart3, BrainCircuit, Cloud, CloudCog, Code2, Database, FileTextIcon, GitBranch, HomeIcon, Layers3, Workflow, type LucideIcon } from "lucide-react";
 import type { ComponentType, ReactNode } from "react";
 import { Docker } from "@/components/ui/svgs/docker";
+import { Kubernetes } from "@/components/ui/svgs/kubernetes";
 import { Postgresql } from "@/components/ui/svgs/postgresql";
 import { Python } from "@/components/ui/svgs/python";
 import { FaAws, FaRProject } from "react-icons/fa";
@@ -9,7 +10,6 @@ import {
   SiApacheairflow,
   SiApachehadoop,
   SiApachekafka,
-  SiApacheparquet,
   SiApachespark,
   SiDatabricks,
   SiDelta,
@@ -17,7 +17,6 @@ import {
   SiElasticsearch,
   SiGit,
   SiGithub,
-  SiGooglebigquery,
   SiGooglecloud,
   SiGrafana,
   SiLangchain,
@@ -70,7 +69,7 @@ export const DATA = {
   url: "https://harishmuthuswamy.com",
   location: "Chicago, IL",
   description: "My work spans data pipelines, analytics, machine learning, MLOps, RAG, and agentic workflows, from ingestion and modeling through deployment.",
-  summary: "I like the part of data work where things are still messy  -  source systems don't line up, reporting is manual, pipelines are slow, or the business question isn't completely clear yet.\n\nThat's usually where I do my best work: understanding what's actually wrong, getting the data trustworthy, and deciding whether the answer should be a pipeline, analytical model, dashboard, predictive system, or AI application.\n\nMy background spans KYC data pipelines, manufacturing sensor analytics, BI, predictive modeling, and RAG/agentic AI. I work mainly with Python, SQL, and modern data platforms, but I also care about the last mile  -  testing, CI/CD, deployment, documentation, and making the solution something people can use.",
+  summary: "I'm drawn to the part of data work where source systems don't line up, reporting is manual, or the business question is still taking shape.\n\nMy experience spans KYC data pipelines, manufacturing sensor analytics, BI, predictive modeling, and RAG/agentic AI. I focus on making data trustworthy and carrying the work through testing, deployment, and documentation so people can use it.",
   avatarUrl: "",
   heroHighlights: [
     { label: "IEEE Research", kind: "credential" },
@@ -79,14 +78,14 @@ export const DATA = {
   coreStack: CORE_STACK,
   skillGroups: [
     { category: "Programming & Query", icon: Code2, technologies: [{ name: "Python", icon: Python }, { name: "SQL", icon: Database }, { name: "R", icon: FaRProject }, { name: "PySpark", icon: SiApachespark }, { name: "Pandas", icon: SiPandas }, { name: "NumPy", icon: SiNumpy }], concepts: ["CTEs", "Window Functions", "Stored Procedures", "Query Optimization", "Complex Joins", "Data Manipulation"] },
-    { category: "Data Engineering", icon: Workflow, technologies: [{ name: "Apache Spark", icon: SiApachespark }, { name: "PySpark", icon: SiApachespark }, { name: "Apache Kafka", icon: SiApachekafka }, { name: "Apache Airflow", icon: SiApacheairflow }, { name: "dbt", icon: Workflow }, { name: "Delta Lake", icon: SiDelta }, { name: "Parquet", icon: SiApacheparquet }, { name: "Hadoop", icon: SiApachehadoop }, { name: "HDFS", icon: SiApachehadoop }], concepts: ["ETL", "ELT", "Data Pipelines", "Data Modeling", "Dimensional Modeling", "Star Schema", "Fact & Dimension Design", "Data Warehousing", "Medallion Architecture", "Data Validation", "Data Profiling", "Data Reconciliation", "Data Quality", "Pipeline Testing", "REST API Integration", "Event-Driven Workflows"] },
+    { category: "Data Engineering", icon: Workflow, technologies: [{ name: "Apache Spark", icon: SiApachespark }, { name: "PySpark", icon: SiApachespark }, { name: "Apache Kafka", icon: SiApachekafka }, { name: "Apache Airflow", icon: SiApacheairflow }, { name: "dbt", icon: Workflow }, { name: "Delta Lake", icon: SiDelta }, { name: "Hadoop", icon: SiApachehadoop }, { name: "HDFS", icon: SiApachehadoop }], concepts: ["ETL", "ELT", "Data Pipelines", "Data Modeling", "Dimensional Modeling", "Star Schema", "Fact & Dimension Design", "Data Warehousing", "Medallion Architecture", "Data Validation", "Data Profiling", "Data Reconciliation", "Data Quality", "Pipeline Testing", "REST API Integration", "Event-Driven Workflows"] },
     { category: "Microsoft Fabric & Azure", icon: Cloud, technologies: [{ name: "Microsoft Fabric", icon: Layers3 }, { name: "OneLake", icon: Layers3 }, { name: "Fabric Lakehouse", icon: Layers3 }, { name: "Fabric Warehouse", icon: Database }, { name: "Fabric Data Pipelines", icon: Workflow }, { name: "Fabric Data Factory", icon: Workflow }, { name: "Dataflows Gen2", icon: Workflow }, { name: "Fabric Spark", icon: SiApachespark }, { name: "Fabric SQL", icon: Database }, { name: "Real-Time Intelligence", icon: CloudCog }, { name: "Power BI", icon: BarChart3 }, { name: "Azure Data Factory", icon: Workflow }, { name: "Azure Blob Storage", icon: CloudCog }, { name: "Azure Databricks", icon: SiDatabricks }], concepts: ["KQL", "DAX", "Power Query"] },
-    { category: "Cloud & Data Platforms", icon: Cloud, technologies: [{ name: "AWS", icon: FaAws }, ...withIcon(["Amazon S3", "Amazon EC2", "Amazon Redshift", "AWS IAM"], FaAws), { name: "Google Cloud Platform", icon: SiGooglecloud }, { name: "BigQuery", icon: SiGooglebigquery }, { name: "Snowflake", icon: SiSnowflake }, { name: "Databricks", icon: SiDatabricks }, { name: "Oracle Cloud / OCI", icon: Cloud }], concepts: [] },
-    { category: "Databases & Warehouses", icon: Database, technologies: [{ name: "PostgreSQL", icon: Postgresql }, { name: "MySQL", icon: SiMysql }, { name: "Microsoft SQL Server", icon: Database }, { name: "Oracle", icon: Database }, { name: "Snowflake", icon: SiSnowflake }, { name: "BigQuery", icon: SiGooglebigquery }, { name: "SQLite", icon: SiSqlite }, { name: "Elasticsearch", icon: SiElasticsearch }, { name: "DuckDB", icon: SiDuckdb }], concepts: [] },
+    { category: "Cloud & Data Platforms", icon: Cloud, technologies: [{ name: "AWS", icon: FaAws }, ...withIcon(["Amazon S3", "Amazon EC2", "Amazon Redshift", "AWS IAM"], FaAws), { name: "Google Cloud Platform", icon: SiGooglecloud }, { name: "Snowflake", icon: SiSnowflake }, { name: "Databricks", icon: SiDatabricks }, { name: "Oracle Cloud / OCI", icon: Cloud }], concepts: [] },
+    { category: "Databases & Warehouses", icon: Database, technologies: [{ name: "PostgreSQL", icon: Postgresql }, { name: "MySQL", icon: SiMysql }, { name: "Microsoft SQL Server", icon: Database }, { name: "Oracle", icon: Database }, { name: "Snowflake", icon: SiSnowflake }, { name: "SQLite", icon: SiSqlite }, { name: "Elasticsearch", icon: SiElasticsearch }, { name: "DuckDB", icon: SiDuckdb }], concepts: [] },
     { category: "Analytics & BI", icon: BarChart3, technologies: [{ name: "Power BI", icon: BarChart3 }, { name: "Tableau", icon: BarChart3 }, { name: "Grafana", icon: SiGrafana }, { name: "Excel", icon: BarChart3 }, { name: "Streamlit", icon: SiStreamlit }, { name: "Plotly", icon: SiPlotly }, ...withIcon(["Matplotlib", "Seaborn"], BarChart3)], concepts: ["KPI Development", "Ad Hoc Reporting", "Data Storytelling", "Trend Analysis", "Root Cause Analysis", "RFM Segmentation", "Drill-Down Analysis"] },
     { category: "Data Science & Machine Learning", icon: BrainCircuit, technologies: [{ name: "scikit-learn", icon: SiScikitlearn }, { name: "XGBoost", icon: BrainCircuit }], concepts: ["Regression", "Linear Regression", "Random Forest", "Gradient Boosting", "Feature Engineering", "Predictive Modeling", "Model Evaluation", "Time-Series Forecasting", "Holt-Winters", "Statistical Analysis", "Hypothesis Testing", "A/B Testing", "Forecast Accuracy", "WAPE", "Risk Scoring", "Segmentation"] },
     { category: "AI / LLM / RAG", icon: BrainCircuit, technologies: [{ name: "LangChain", icon: SiLangchain }, { name: "FAISS", icon: Database }, { name: "Elasticsearch", icon: SiElasticsearch }], concepts: ["RAG", "Vector Search", "Embeddings", "Elasticsearch Retrieval", "MCP / Model Context Protocol", "AI Agents / Agentic Workflows", "LLM Applications", "Document Chunking", "Metadata-Aware Retrieval", "Prompt Engineering", "LLM Evaluation", "Transformers", "LoRA", "Federated Learning"] },
-    { category: "DevOps / Delivery / Collaboration", icon: GitBranch, technologies: [{ name: "Git", icon: SiGit }, { name: "GitHub", icon: SiGithub }, { name: "Docker", icon: Docker }, { name: "Linux", icon: SiLinux }], concepts: ["MLOps", "CI/CD", "Automated Testing", "Pipeline Testing", "Model Evaluation", "Deployment Workflows", "Code Reviews", "Technical Documentation", "REST API Integration", "Jira", "Confluence", "Agile", "Scrum"] },
+    { category: "DevOps / Delivery / Collaboration", icon: GitBranch, technologies: [{ name: "Git", icon: SiGit }, { name: "GitHub", icon: SiGithub }, { name: "Docker", icon: Docker }, { name: "Kubernetes", icon: Kubernetes }, { name: "Linux", icon: SiLinux }], concepts: ["MLOps", "CI/CD", "Automated Testing", "Pipeline Testing", "Model Evaluation", "Deployment Workflows", "Code Reviews", "Technical Documentation", "REST API Integration", "Jira", "Confluence", "Agile", "Scrum"] },
   ] as SkillGroup[],
   navbar: [{ href: "/", icon: HomeIcon, label: "Home" }],
   contact: { email: "harishnamasivayam@gmail.com", scheduleUrl: "", social: {

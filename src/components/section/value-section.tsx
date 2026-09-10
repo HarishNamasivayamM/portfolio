@@ -33,7 +33,7 @@ export default function ValueSection() {
     <section id="value" className="flex flex-col gap-5">
       <BlurFade delay={0.04}>
         <div>
-          <h2 className="text-2xl font-bold tracking-tight">Where I Add Value</h2>
+          <h2 className="text-xl font-bold tracking-tight">Where I Add Value</h2>
           <p className="mt-1.5 text-base leading-relaxed text-muted-foreground">From raw data to decisions, deployed models, and intelligent systems.</p>
         </div>
       </BlurFade>

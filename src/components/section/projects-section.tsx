@@ -69,7 +69,7 @@ export default function ProjectsSection() {
 
       <div className="flex flex-wrap gap-2" aria-label="Filter projects by category">
         {filters.map((filter) => (
-          <button key={filter} type="button" aria-pressed={activeFilter === filter} onClick={() => setActiveFilter(filter)} className={`min-h-9 rounded-md border px-3 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${activeFilter === filter ? "border-primary bg-primary text-primary-foreground" : "border-border bg-background text-muted-foreground hover:bg-muted hover:text-foreground"}`}>
+          <button key={filter} type="button" aria-pressed={activeFilter === filter} onClick={() => setActiveFilter(filter)} className={`min-h-9 rounded-full border px-3 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${activeFilter === filter ? "border-primary/40 bg-primary/10 text-primary" : "border-border/70 bg-background/60 text-muted-foreground hover:bg-muted hover:text-foreground"}`}>
             {filter}
           </button>
         ))}
@@ -91,7 +91,7 @@ export default function ProjectsSection() {
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {moreProjects.map((project, index) => (
             <BlurFade key={project.canonicalId} delay={0.08 + index * 0.025} className="h-full">
-              <CompactProjectCard title={project.title} categories={project.categories} outcome={project.outcome} approach={project.approach} githubUrl={project.githubUrl} demoUrl={project.demoUrl} caseStudyUrl={project.caseStudyUrl} architectureUrl={project.architectureUrl} paperUrl={project.paperUrl} />
+              <CompactProjectCard title={project.title} categories={project.categories} problem={project.problem} build={project.build} scale={project.scale} outcome={project.outcome} approach={project.approach} githubUrl={project.githubUrl} demoUrl={project.demoUrl} caseStudyUrl={project.caseStudyUrl} architectureUrl={project.architectureUrl} paperUrl={project.paperUrl} />
             </BlurFade>
           ))}
         </div>
