@@ -1,701 +1,141 @@
 import { Icons } from "@/components/icons";
-import { HomeIcon, NotebookIcon } from "lucide-react";
-import { ReactLight } from "@/components/ui/svgs/reactLight";
-import { NextjsIconDark } from "@/components/ui/svgs/nextjsIconDark";
-import { Typescript } from "@/components/ui/svgs/typescript";
-import { Nodejs } from "@/components/ui/svgs/nodejs";
-import { Python } from "@/components/ui/svgs/python";
-import { Golang } from "@/components/ui/svgs/golang";
-import { Postgresql } from "@/components/ui/svgs/postgresql";
+import { BarChart3, BrainCircuit, Cloud, CloudCog, Code2, Database, FileTextIcon, GitBranch, HomeIcon, Layers3, Workflow, type LucideIcon } from "lucide-react";
+import type { ComponentType, ReactNode } from "react";
 import { Docker } from "@/components/ui/svgs/docker";
-import { Kubernetes } from "@/components/ui/svgs/kubernetes";
-import { Java } from "@/components/ui/svgs/java";
-import { Csharp } from "@/components/ui/svgs/csharp";
+import { Postgresql } from "@/components/ui/svgs/postgresql";
+import { Python } from "@/components/ui/svgs/python";
+import { FaAws, FaRProject } from "react-icons/fa";
+import {
+  SiApacheairflow,
+  SiApachehadoop,
+  SiApachekafka,
+  SiApacheparquet,
+  SiApachespark,
+  SiDatabricks,
+  SiDelta,
+  SiDuckdb,
+  SiElasticsearch,
+  SiGit,
+  SiGithub,
+  SiGooglebigquery,
+  SiGooglecloud,
+  SiGrafana,
+  SiLangchain,
+  SiLinux,
+  SiMysql,
+  SiNumpy,
+  SiPandas,
+  SiPlotly,
+  SiScikitlearn,
+  SiSnowflake,
+  SiSqlite,
+  SiStreamlit,
+} from "react-icons/si";
+
+export interface Skill { name: string; icon: ComponentType<{ className?: string }>; }
+export interface SkillGroup { category: string; technologies: readonly Skill[]; concepts: readonly string[]; icon?: LucideIcon; }
+export interface WorkExperience { company: string; title: string; logoUrl?: string; location?: string; start: string; end?: string; summary?: string; highlights?: readonly string[]; additionalHighlights?: readonly string[]; }
+export interface Education { school: string; initials: string; degree: string; field?: string; affiliatedCollege?: string; href?: string; logoUrl?: string; start?: string; end?: string; gpa?: string; location?: string; }
+export interface Project { canonicalId: string; title: string; categories: readonly string[]; problem: string; build?: string; approach: readonly string[]; scale?: string; outcome: string; metrics?: readonly string[]; venue?: string; badge?: string; date?: string; status?: string; featured?: boolean; research?: boolean; featuredMetric?: string; featuredMetricLabel?: string; githubUrl?: string; demoUrl?: string; architectureUrl?: string; caseStudyUrl?: string; paperUrl?: string; coverImage?: string; demoVideo?: string; image?: string; video?: string; }
+export interface PublicationAchievement { type: "Publication" | "Achievement / Award" | "Participation"; title: string; organization: string; date?: string; description: string; href?: string; badge?: string; project?: string; }
+export interface Certification { name: string; issuer: string; initials: string; subtitle?: string; date?: string; year?: string; credentialId?: string; href?: string; logoUrl?: string; }
+export interface GitHubActivity { profileUrl: string; imageUrl: string; alt: string; }
+export interface LeadershipRole { title: string; start: string; end: string; }
+export interface LeadershipEntry { organization: string; initials: string; roles: readonly LeadershipRole[]; description?: string; secondary?: boolean; }
+export interface Hackathon { title: string; dates?: string; location?: string; description?: string; image?: string; links?: readonly { title: string; href: string; icon?: ReactNode }[]; }
+
+const withIcon = (names: readonly string[], icon: ComponentType<{ className?: string }>): Skill[] => names.map((name) => ({ name, icon }));
+
+const CORE_STACK: Skill[] = [
+  { name: "Python", icon: Python },
+  { name: "SQL", icon: Database },
+  { name: "Apache Spark", icon: SiApachespark },
+  { name: "Apache Kafka", icon: SiApachekafka },
+  { name: "Apache Airflow", icon: SiApacheairflow },
+  { name: "dbt", icon: Workflow },
+  { name: "Microsoft Fabric", icon: Layers3 },
+  { name: "Snowflake", icon: SiSnowflake },
+  { name: "Azure", icon: CloudCog },
+  { name: "Power BI", icon: BarChart3 },
+  { name: "Databricks", icon: SiDatabricks },
+  { name: "scikit-learn", icon: SiScikitlearn },
+  { name: "Docker", icon: Docker },
+];
 
 export const DATA = {
-  name: "Dillion Verma",
-  initials: "DV",
-  url: "https://dillion.io",
-  location: "San Francisco, CA",
-  locationLink: "https://www.google.com/maps/place/sanfrancisco",
-  description:
-    "Software Engineer turned Entrepreneur. I love building things and helping people. Very active on Twitter.",
-  summary:
-    "At the end of 2022, I quit my job as a software engineer to go fulltime into building and scaling my own SaaS businesses. In the past, [I pursued a double degree in computer science and business](/#education), [interned at big tech companies in Silicon Valley](https://www.youtube.com/watch?v=d-LJ2e5qKdE), and [competed in over 21 hackathons for fun](/#hackathons). I also had the pleasure of being a part of the first ever in-person cohort of buildspace called [buildspace sf1](https://buildspace.so/sf1).",
-  avatarUrl: "/me.png",
-  skills: [
-    { name: "React", icon: ReactLight },
-    { name: "Next.js", icon: NextjsIconDark },
-    { name: "Typescript", icon: Typescript },
-    { name: "Node.js", icon: Nodejs },
-    { name: "Python", icon: Python },
-    { name: "Go", icon: Golang },
-    { name: "Postgres", icon: Postgresql },
-    { name: "Docker", icon: Docker },
-    { name: "Kubernetes", icon: Kubernetes },
-    { name: "Java", icon: Java },
-    { name: "C++", icon: Csharp },
+  name: "Harish Namasivayam Muthuswamy",
+  initials: "HNM",
+  role: "Data Engineering   ·   Analytics   ·   ML/AI   ·   MLOps",
+  breadth: "Data & Analytics Engineer with 2+ years of experience building modern data platforms and applied AI systems across financial services and manufacturing.",
+  url: "",
+  location: "Chicago, IL",
+  description: "My work spans data pipelines, analytics, machine learning, MLOps, RAG, and agentic workflows, from ingestion and modeling through deployment.",
+  summary: "I like the part of data work where things are still messy  -  source systems don't line up, reporting is manual, pipelines are slow, or the business question isn't completely clear yet.\n\nThat's usually where I do my best work: understanding what's actually wrong, getting the data trustworthy, and deciding whether the answer should be a pipeline, analytical model, dashboard, predictive system, or AI application.\n\nMy background spans KYC data pipelines, manufacturing sensor analytics, BI, predictive modeling, and RAG/agentic AI. I work mainly with Python, SQL, and modern data platforms, but I also care about the last mile  -  testing, CI/CD, deployment, documentation, and making the solution something people can use.",
+  avatarUrl: "",
+  heroHighlights: [
+    { label: "IEEE Research", kind: "credential" },
+    { label: "LA Hacks Challenge Winner", kind: "credential" },
   ],
-  navbar: [
-    { href: "/", icon: HomeIcon, label: "Home" },
-    { href: "/blog", icon: NotebookIcon, label: "Blog" },
-  ],
-  contact: {
-    email: "hello@example.com",
-    tel: "+123456789",
-    social: {
-      GitHub: {
-        name: "GitHub",
-        url: "https://dub.sh/dillion-github",
-        icon: Icons.github,
-        navbar: true,
-      },
-
-      LinkedIn: {
-        name: "LinkedIn",
-        url: "https://dub.sh/dillion-linkedin",
-        icon: Icons.linkedin,
-
-        navbar: true,
-      },
-      X: {
-        name: "X",
-        url: "https://dub.sh/dillion-twitter",
-        icon: Icons.x,
-
-        navbar: true,
-      },
-      Youtube: {
-        name: "Youtube",
-        url: "https://dub.sh/dillion-youtube",
-        icon: Icons.youtube,
-        navbar: true,
-      },
-      email: {
-        name: "Send Email",
-        url: "#",
-        icon: Icons.email,
-
-        navbar: false,
-      },
-    },
-  },
-
+  coreStack: CORE_STACK,
+  skillGroups: [
+    { category: "Programming & Query", icon: Code2, technologies: [{ name: "Python", icon: Python }, { name: "SQL", icon: Database }, { name: "R", icon: FaRProject }, { name: "PySpark", icon: SiApachespark }, { name: "Pandas", icon: SiPandas }, { name: "NumPy", icon: SiNumpy }], concepts: ["CTEs", "Window Functions", "Stored Procedures", "Query Optimization", "Complex Joins", "Data Manipulation"] },
+    { category: "Data Engineering", icon: Workflow, technologies: [{ name: "Apache Spark", icon: SiApachespark }, { name: "PySpark", icon: SiApachespark }, { name: "Apache Kafka", icon: SiApachekafka }, { name: "Apache Airflow", icon: SiApacheairflow }, { name: "dbt", icon: Workflow }, { name: "Delta Lake", icon: SiDelta }, { name: "Parquet", icon: SiApacheparquet }, { name: "Hadoop", icon: SiApachehadoop }, { name: "HDFS", icon: SiApachehadoop }], concepts: ["ETL", "ELT", "Data Pipelines", "Data Modeling", "Dimensional Modeling", "Star Schema", "Fact & Dimension Design", "Data Warehousing", "Medallion Architecture", "Data Validation", "Data Profiling", "Data Reconciliation", "Data Quality", "Pipeline Testing", "REST API Integration", "Event-Driven Workflows"] },
+    { category: "Microsoft Fabric & Azure", icon: Cloud, technologies: [{ name: "Microsoft Fabric", icon: Layers3 }, { name: "OneLake", icon: Layers3 }, { name: "Fabric Lakehouse", icon: Layers3 }, { name: "Fabric Warehouse", icon: Database }, { name: "Fabric Data Pipelines", icon: Workflow }, { name: "Fabric Data Factory", icon: Workflow }, { name: "Dataflows Gen2", icon: Workflow }, { name: "Fabric Spark", icon: SiApachespark }, { name: "Fabric SQL", icon: Database }, { name: "Real-Time Intelligence", icon: CloudCog }, { name: "Power BI", icon: BarChart3 }, { name: "Azure Data Factory", icon: Workflow }, { name: "Azure Blob Storage", icon: CloudCog }, { name: "Azure Databricks", icon: SiDatabricks }], concepts: ["KQL", "DAX", "Power Query"] },
+    { category: "Cloud & Data Platforms", icon: Cloud, technologies: [{ name: "AWS", icon: FaAws }, ...withIcon(["Amazon S3", "Amazon EC2", "Amazon Redshift", "AWS IAM"], FaAws), { name: "Google Cloud Platform", icon: SiGooglecloud }, { name: "BigQuery", icon: SiGooglebigquery }, { name: "Snowflake", icon: SiSnowflake }, { name: "Databricks", icon: SiDatabricks }, { name: "Oracle Cloud / OCI", icon: Cloud }], concepts: [] },
+    { category: "Databases & Warehouses", icon: Database, technologies: [{ name: "PostgreSQL", icon: Postgresql }, { name: "MySQL", icon: SiMysql }, { name: "Microsoft SQL Server", icon: Database }, { name: "Oracle", icon: Database }, { name: "Snowflake", icon: SiSnowflake }, { name: "BigQuery", icon: SiGooglebigquery }, { name: "SQLite", icon: SiSqlite }, { name: "Elasticsearch", icon: SiElasticsearch }, { name: "DuckDB", icon: SiDuckdb }], concepts: [] },
+    { category: "Analytics & BI", icon: BarChart3, technologies: [{ name: "Power BI", icon: BarChart3 }, { name: "Tableau", icon: BarChart3 }, { name: "Grafana", icon: SiGrafana }, { name: "Excel", icon: BarChart3 }, { name: "Streamlit", icon: SiStreamlit }, { name: "Plotly", icon: SiPlotly }, ...withIcon(["Matplotlib", "Seaborn"], BarChart3)], concepts: ["KPI Development", "Ad Hoc Reporting", "Data Storytelling", "Trend Analysis", "Root Cause Analysis", "RFM Segmentation", "Drill-Down Analysis"] },
+    { category: "Data Science & Machine Learning", icon: BrainCircuit, technologies: [{ name: "scikit-learn", icon: SiScikitlearn }, { name: "XGBoost", icon: BrainCircuit }], concepts: ["Regression", "Linear Regression", "Random Forest", "Gradient Boosting", "Feature Engineering", "Predictive Modeling", "Model Evaluation", "Time-Series Forecasting", "Holt-Winters", "Statistical Analysis", "Hypothesis Testing", "A/B Testing", "Forecast Accuracy", "WAPE", "Risk Scoring", "Segmentation"] },
+    { category: "AI / LLM / RAG", icon: BrainCircuit, technologies: [{ name: "LangChain", icon: SiLangchain }, { name: "FAISS", icon: Database }, { name: "Elasticsearch", icon: SiElasticsearch }], concepts: ["RAG", "Vector Search", "Embeddings", "Elasticsearch Retrieval", "MCP / Model Context Protocol", "AI Agents / Agentic Workflows", "LLM Applications", "Document Chunking", "Metadata-Aware Retrieval", "Prompt Engineering", "LLM Evaluation", "Transformers", "LoRA", "Federated Learning"] },
+    { category: "DevOps / Delivery / Collaboration", icon: GitBranch, technologies: [{ name: "Git", icon: SiGit }, { name: "GitHub", icon: SiGithub }, { name: "Docker", icon: Docker }, { name: "Linux", icon: SiLinux }], concepts: ["MLOps", "CI/CD", "Automated Testing", "Pipeline Testing", "Model Evaluation", "Deployment Workflows", "Code Reviews", "Technical Documentation", "REST API Integration", "Jira", "Confluence", "Agile", "Scrum"] },
+  ] as SkillGroup[],
+  navbar: [{ href: "/", icon: HomeIcon, label: "Home" }],
+  contact: { email: "harishnamasivayam@gmail.com", scheduleUrl: "", social: {
+    GitHub: { name: "GitHub", url: "https://github.com/HarishNamasivayamM", icon: Icons.github, navbar: false },
+    LinkedIn: { name: "LinkedIn", url: "https://www.linkedin.com/in/harish-namasivayam-muthuswamy/", icon: Icons.linkedin, navbar: true },
+    email: { name: "Email", url: "mailto:harishnamasivayam@gmail.com", icon: Icons.email, navbar: true },
+    Resume: { name: "Resume", url: "", icon: FileTextIcon, navbar: false },
+  } },
   work: [
-    {
-      company: "Atomic Finance",
-      href: "https://atomic.finance",
-      badges: [],
-      location: "Remote",
-      title: "Bitcoin Protocol Engineer",
-      logoUrl: "/atomic.png",
-      start: "May 2021",
-      end: "Oct 2022",
-      description:
-        "Implemented the Bitcoin discreet log contract (DLC) protocol specifications as an open source Typescript SDK. Dockerized all microservices and setup production kubernetes cluster. Architected a data lake using AWS S3 and Athena for historical backtesting of bitcoin trading strategies. Built a mobile app using react native and typescript.",
-    },
-    {
-      company: "Shopify",
-      badges: [],
-      href: "https://shopify.com",
-      location: "Remote",
-      title: "Software Engineer",
-      logoUrl: "/shopify.svg",
-      start: "January 2021",
-      end: "April 2021",
-      description:
-        "Implemented a custom Kubernetes controller in Go to automate the deployment of MySQL and ProxySQL custom resources in order to enable 2,000+ internal developers to instantly deploy their app databases to production. Wrote several scripts in Go to automate MySQL database failovers while maintaining master-slave replication topologies and keeping Zookeeper nodes consistent with changes.",
-    },
-    {
-      company: "Nvidia",
-      href: "https://nvidia.com/",
-      badges: [],
-      location: "Santa Clara, CA",
-      title: "Software Engineer",
-      logoUrl: "/nvidia.png",
-      start: "January 2020",
-      end: "April 2020",
-      description:
-        "Architected and wrote the entire MVP of the GeForce Now Cloud Gaming internal admin and A/B testing dashboard using React, Redux, TypeScript, and Python.",
-    },
-    {
-      company: "Splunk",
-      href: "https://splunk.com",
-      badges: [],
-      location: "San Jose, CA",
-      title: "Software Engineer",
-      logoUrl: "/splunk.svg",
-      start: "January 2019",
-      end: "April 2019",
-      description:
-        "Co-developed a prototype iOS app with another intern in Swift for the new Splunk Phantom security orchestration product (later publicly demoed and launched at .conf annual conference in Las Vegas). Implemented a realtime service for the iOS app in Django (Python) and C++; serialized data using protobufs transmitted over gRPC resulting in an approximate 500% increase in data throughput.",
-    },
-    {
-      company: "Lime",
-      href: "https://li.me/",
-      badges: [],
-      location: "San Francisco, CA",
-      title: "Software Engineer",
-      logoUrl: "/lime.svg",
-      start: "January 2018",
-      end: "April 2018",
-      description:
-        "Proposed and implemented an internal ruby API for sending/receiving commands to scooters over LTE networks. Developed a fully automated bike firmware update system to handle asynchronous firmware updates of over 100,000+ scooters worldwide, and provide progress reports in real-time using React, Ruby on Rails, PostgreSQL and AWS EC2 saving hundreds of developer hours.",
-    },
-    {
-      company: "Mitre Media",
-      href: "https://mitremedia.com/",
-      badges: [],
-      location: "Toronto, ON",
-      title: "Software Engineer",
-      logoUrl: "/mitremedia.png",
-      start: "May 2017",
-      end: "August 2017",
-      description:
-        "Designed and implemented a robust password encryption and browser cookie storage system in Ruby on Rails. Leveraged the Yahoo finance API to develop the dividend.com equity screener",
-    },
-  ],
-  education: [
-    {
-      school: "Buildspace",
-      href: "https://buildspace.so",
-      degree: "s3, s4, sf1, s5",
-      logoUrl: "/buildspace.jpg",
-      start: "2023",
-      end: "2024",
-    },
-    {
-      school: "University of Waterloo",
-      href: "https://uwaterloo.ca",
-      degree: "Bachelor's Degree of Computer Science (BCS)",
-      logoUrl: "/waterloo.png",
-      start: "2016",
-      end: "2021",
-    },
-    {
-      school: "Wilfrid Laurier University",
-      href: "https://wlu.ca",
-      degree: "Bachelor's Degree of Business Administration (BBA)",
-      logoUrl: "/laurier.png",
-      start: "2016",
-      end: "2021",
-    },
-    {
-      school: "International Baccalaureate",
-      href: "https://ibo.org",
-      degree: "IB Diploma",
-      logoUrl: "/ib.png",
-      start: "2012",
-      end: "2016",
-    },
-  ],
+    { company: "U-Sense.IT srl", title: "Data Analytics & Algorithms Intern", location: "Remote", start: "Mar 2026", end: "May 2026", summary: "Built data-quality analysis, vehicle risk scoring, predictive models, and real-time manufacturing quality monitoring across two production stages.", highlights: ["Analyzed 2,000+ automotive sensor records across two manufacturing stages, identifying 15+ data-quality issues and establishing a cleaner foundation for downstream risk modeling.", "Engineered 10+ tolerance-margin features and a vehicle-level risk score to surface high-risk units before Final Assembly.", "Built and benchmarked Linear Regression, Random Forest, and Gradient Boosting models in scikit-learn, reaching up to approximately 85% prediction accuracy.", "Built a real-time Grafana dashboard tracking quality KPIs, pass/fail rates, and anomaly alerts for manufacturing monitoring."] },
+    { company: "Wipro Technologies Ltd.", title: "Project Engineer", location: "Chennai, India", start: "Dec 2022", end: "Jul 2024", summary: "Built SQL-based ETL and BI solutions for a KYC compliance platform serving a US-based banking client.", highlights: ["Engineered and maintained SQL-based ETL workflows for a KYC compliance platform processing 1M+ onboarding records across source, staging, and reporting layers.", "Optimized SQL queries, stored procedures, views, and indexing strategies, improving ETL processing performance by approximately 40%.", "Developed Power BI reporting for onboarding and operational KPIs, contributing to approximately 15% higher account activation and approximately 30% lower manual reporting effort.", "Performed data-quality validation, reconciliation, profiling, and root cause analysis with QA, business, and compliance teams."] },
+    { company: "Wipro Technologies Ltd.", title: "Analytics Intern", location: "Chennai, India", start: "Mar 2022", end: "May 2022", summary: "Automated recurring reporting and improved customer-data reconciliation through SQL analysis and validation.", highlights: ["Automated recurring reporting with 30+ SQL queries across three databases, reducing manual reporting effort by approximately 25%.", "Profiled and validated 50K+ customer records, resolving inconsistencies and supporting approximately 98% reconciliation accuracy."] },
+  ] as WorkExperience[],
   projects: [
-    {
-      title: "Chat Collect",
-      href: "https://chatcollect.com",
-      dates: "Jan 2024 - Feb 2024",
-      active: true,
-      description:
-        "With the release of the [OpenAI GPT Store](https://openai.com/blog/introducing-the-gpt-store), I decided to build a SaaS which allows users to collect email addresses from their GPT users. This is a great way to build an audience and monetize your GPT API usage.",
-      technologies: [
-        "Next.js",
-        "Typescript",
-        "PostgreSQL",
-        "Prisma",
-        "TailwindCSS",
-        "Stripe",
-        "Shadcn UI",
-        "Magic UI",
-      ],
-      links: [
-        {
-          type: "Website",
-          href: "https://chatcollect.com",
-          icon: <Icons.globe className="size-3" />,
-        },
-      ],
-      image: "",
-      video:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/chat-collect.mp4",
-    },
-    {
-      title: "Magic UI",
-      href: "https://magicui.design",
-      dates: "June 2023 - Present",
-      active: true,
-      description:
-        "Designed, developed and sold animated UI components for developers.",
-      technologies: [
-        "Next.js",
-        "Typescript",
-        "PostgreSQL",
-        "Prisma",
-        "TailwindCSS",
-        "Stripe",
-        "Shadcn UI",
-        "Magic UI",
-      ],
-      links: [
-        {
-          type: "Website",
-          href: "https://magicui.design",
-          icon: <Icons.globe className="size-3" />,
-        },
-        {
-          type: "Source",
-          href: "https://github.com/magicuidesign/magicui",
-          icon: <Icons.github className="size-3" />,
-        },
-      ],
-      image: "",
-      video: "https://cdn.magicui.design/bento-grid.mp4",
-    },
-    {
-      title: "llm.report",
-      href: "https://llm.report",
-      dates: "April 2023 - September 2023",
-      active: true,
-      description:
-        "Developed an open-source logging and analytics platform for OpenAI: Log your ChatGPT API requests, analyze costs, and improve your prompts.",
-      technologies: [
-        "Next.js",
-        "Typescript",
-        "PostgreSQL",
-        "Prisma",
-        "TailwindCSS",
-        "Shadcn UI",
-        "Magic UI",
-        "Stripe",
-        "Cloudflare Workers",
-      ],
-      links: [
-        {
-          type: "Website",
-          href: "https://llm.report",
-          icon: <Icons.globe className="size-3" />,
-        },
-        {
-          type: "Source",
-          href: "https://github.com/dillionverma/llm.report",
-          icon: <Icons.github className="size-3" />,
-        },
-      ],
-      image: "",
-      video: "https://cdn.llm.report/openai-demo.mp4",
-    },
-    {
-      title: "Automatic Chat",
-      href: "https://automatic.chat",
-      dates: "April 2023 - March 2024",
-      active: true,
-      description:
-        "Developed an AI Customer Support Chatbot which automatically responds to customer support tickets using the latest GPT models.",
-      technologies: [
-        "Next.js",
-        "Typescript",
-        "PostgreSQL",
-        "Prisma",
-        "TailwindCSS",
-        "Shadcn UI",
-        "Magic UI",
-        "Stripe",
-        "Cloudflare Workers",
-      ],
-      links: [
-        {
-          type: "Website",
-          href: "https://automatic.chat",
-          icon: <Icons.globe className="size-3" />,
-        },
-      ],
-      image: "",
-      video:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/automatic-chat.mp4",
-    },
-  ],
-  hackathons: [
-    {
-      title: "Hack Western 5",
-      dates: "November 23rd - 25th, 2018",
-      location: "London, Ontario",
-      description:
-        "Developed a mobile application which delivered bedtime stories to children using augmented reality.",
-      image:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/hackline/hack-western.png",
-      mlh: "https://s3.amazonaws.com/logged-assets/trust-badge/2019/mlh-trust-badge-2019-white.svg",
-      links: [],
-    },
-    {
-      title: "Hack The North",
-      dates: "September 14th - 16th, 2018",
-      location: "Waterloo, Ontario",
-      description:
-        "Developed a mobile application which delivers university campus wide events in real time to all students.",
-      image:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/hackline/hack-the-north.png",
-      mlh: "https://s3.amazonaws.com/logged-assets/trust-badge/2019/mlh-trust-badge-2019-white.svg",
-      links: [],
-    },
-    {
-      title: "FirstNet Public Safety Hackathon",
-      dates: "March 23rd - 24th, 2018",
-      location: "San Francisco, California",
-      description:
-        "Developed a mobile application which communcicates a victims medical data from inside an ambulance to doctors at hospital.",
-      icon: "public",
-      image:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/hackline/firstnet.png",
-      links: [],
-    },
-    {
-      title: "DeveloperWeek Hackathon",
-      dates: "February 3rd - 4th, 2018",
-      location: "San Francisco, California",
-      description:
-        "Developed a web application which aggregates social media data regarding cryptocurrencies and predicts future prices.",
-      image:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/hackline/developer-week.jpg",
-      links: [
-        {
-          title: "Github",
-          icon: <Icons.github className="h-4 w-4" />,
-          href: "https://github.com/cryptotrends/cryptotrends",
-        },
-      ],
-    },
-    {
-      title: "HackDavis",
-      dates: "January 20th - 21st, 2018",
-      location: "Davis, California",
-      description:
-        "Developed a mobile application which allocates a daily carbon emission allowance to users to move towards a sustainable environment.",
-      image:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/hackline/hack-davis.png",
-      win: "Best Data Hack",
-      mlh: "https://s3.amazonaws.com/logged-assets/trust-badge/2018/white.svg",
-      links: [
-        {
-          title: "Devpost",
-          icon: <Icons.globe className="h-4 w-4" />,
-          href: "https://devpost.com/software/my6footprint",
-        },
-        {
-          title: "ML",
-          icon: <Icons.github className="h-4 w-4" />,
-          href: "https://github.com/Wallet6/my6footprint-machine-learning",
-        },
-        {
-          title: "iOS",
-          icon: <Icons.github className="h-4 w-4" />,
-          href: "https://github.com/Wallet6/CarbonWallet",
-        },
-        {
-          title: "Server",
-          icon: <Icons.github className="h-4 w-4" />,
-          href: "https://github.com/Wallet6/wallet6-server",
-        },
-      ],
-    },
-    {
-      title: "ETH Waterloo",
-      dates: "October 13th - 15th, 2017",
-      location: "Waterloo, Ontario",
-      description:
-        "Developed a blockchain application for doctors and pharmacists to perform trustless transactions and prevent overdosage in patients.",
-      image:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/hackline/eth-waterloo.png",
-      links: [
-        {
-          title: "Organization",
-          icon: <Icons.github className="h-4 w-4" />,
-          href: "https://github.com/ethdocnet",
-        },
-      ],
-    },
-    {
-      title: "Hack The North",
-      dates: "September 15th - 17th, 2017",
-      location: "Waterloo, Ontario",
-      description:
-        "Developed a virtual reality application allowing users to see themselves in third person.",
-      image:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/hackline/hack-the-north.png",
-      mlh: "https://s3.amazonaws.com/logged-assets/trust-badge/2017/white.svg",
-      links: [
-        {
-          title: "Streamer Source",
-          icon: <Icons.github className="h-4 w-4" />,
-          href: "https://github.com/justinmichaud/htn2017",
-        },
-        {
-          title: "Client Source",
-          icon: <Icons.github className="h-4 w-4" />,
-          href: "https://github.com/dillionverma/RTSPClient",
-        },
-      ],
-    },
-    {
-      title: "Hack The 6ix",
-      dates: "August 26th - 27th, 2017",
-      location: "Toronto, Ontario",
-      description:
-        "Developed an open platform for people shipping items to same place to combine shipping costs and save money.",
-      image:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/hackline/hack-the-6ix.jpg",
-      mlh: "https://s3.amazonaws.com/logged-assets/trust-badge/2017/white.svg",
-      links: [
-        {
-          title: "Source",
-          icon: <Icons.github className="h-4 w-4" />,
-          href: "https://github.com/ShareShip/ShareShip",
-        },
-        {
-          title: "Site",
-          icon: <Icons.globe className="h-4 w-4" />,
-          href: "https://share-ship.herokuapp.com/",
-        },
-      ],
-    },
-    {
-      title: "Stupid Hack Toronto",
-      dates: "July 23rd, 2017",
-      location: "Toronto, Ontario",
-      description:
-        "Developed a chrome extension which tracks which facebook profiles you have visited and immediately texts your girlfriend if you visited another girls page.",
-      image:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/hackline/stupid-hackathon.png",
-      links: [
-        {
-          title: "Source",
-          icon: <Icons.github className="h-4 w-4" />,
-          href: "https://github.com/nsagirlfriend/nsagirlfriend",
-        },
-      ],
-    },
-    {
-      title: "Global AI Hackathon - Toronto",
-      dates: "June 23rd - 25th, 2017",
-      location: "Toronto, Ontario",
-      description:
-        "Developed a python library which can be imported to any python game and change difficulty of the game based on real time emotion of player. Uses OpenCV and webcam for facial recognition, and a custom Machine Learning Model trained on a [Kaggle Emotion Dataset](https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/leaderboard) using [Tensorflow](https://www.tensorflow.org/Tensorflow) and [Keras](https://keras.io/). This project recieved 1st place prize at the Global AI Hackathon - Toronto and was also invited to demo at [NextAI Canada](https://www.nextcanada.com/next-ai).",
-      image:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/hackline/global-ai-hackathon.jpg",
-      win: "1st Place Winner",
-      links: [
-        {
-          title: "Article",
-          icon: <Icons.globe className="h-4 w-4" />,
-          href: "https://syncedreview.com/2017/06/26/global-ai-hackathon-in-toronto/",
-        },
-        {
-          title: "Source",
-          icon: <Icons.github className="h-4 w-4" />,
-          href: "https://github.com/TinySamosas/",
-        },
-      ],
-    },
-    {
-      title: "McGill AI for Social Innovation Hackathon",
-      dates: "June 17th - 18th, 2017",
-      location: "Montreal, Quebec",
-      description:
-        "Developed realtime facial microexpression analyzer using AI",
-      image:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/hackline/ai-for-social-good.jpg",
-      links: [],
-    },
-    {
-      title: "Open Source Circular Economy Days Hackathon",
-      dates: "June 10th, 2017",
-      location: "Toronto, Ontario",
-      description:
-        "Developed a custom admin interface for food waste startup <a href='http://genecis.co/'>Genecis</a> to manage their data and provide analytics.",
-      image:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/hackline/open-source-circular-economy-days.jpg",
-      win: "1st Place Winner",
-      links: [
-        {
-          title: "Source",
-          icon: <Icons.github className="h-4 w-4" />,
-          href: "https://github.com/dillionverma/genecis",
-        },
-      ],
-    },
-    {
-      title: "Make School's Student App Competition 2017",
-      dates: "May 19th - 21st, 2017",
-      location: "International",
-      description: "Improved PocketDoc and submitted to online competition",
-      image:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/hackline/make-school-hackathon.png",
-      win: "Top 10 Finalist | Honourable Mention",
-      links: [
-        {
-          title: "Medium Article",
-          icon: <Icons.globe className="h-4 w-4" />,
-          href: "https://medium.com/make-school/the-winners-of-make-schools-student-app-competition-2017-a6b0e72f190a",
-        },
-        {
-          title: "Devpost",
-          icon: <Icons.globe className="h-4 w-4" />,
-          href: "https://devpost.com/software/pocketdoc-react-native",
-        },
-        {
-          title: "YouTube",
-          icon: <Icons.youtube className="h-4 w-4" />,
-          href: "https://www.youtube.com/watch?v=XwFdn5Rmx68",
-        },
-        {
-          title: "Source",
-          icon: <Icons.github className="h-4 w-4" />,
-          href: "https://github.com/dillionverma/pocketdoc-react-native",
-        },
-      ],
-    },
-    {
-      title: "HackMining",
-      dates: "May 12th - 14th, 2017",
-      location: "Toronto, Ontario",
-      description: "Developed neural network to optimize a mining process",
-      image:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/hackline/hack-mining.png",
-      links: [],
-    },
-    {
-      title: "Waterloo Equithon",
-      dates: "May 5th - 7th, 2017",
-      location: "Waterloo, Ontario",
-      description:
-        "Developed Pocketdoc, an app in which you take a picture of a physical wound, and the app returns common solutions or cures to the injuries or diseases.",
-      image:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/hackline/waterloo-equithon.png",
-      links: [
-        {
-          title: "Devpost",
-          icon: <Icons.globe className="h-4 w-4" />,
-          href: "https://devpost.com/software/pocketdoc-react-native",
-        },
-        {
-          title: "YouTube",
-          icon: <Icons.youtube className="h-4 w-4" />,
-          href: "https://www.youtube.com/watch?v=XwFdn5Rmx68",
-        },
-        {
-          title: "Source",
-          icon: <Icons.github className="h-4 w-4" />,
-          href: "https://github.com/dillionverma/pocketdoc-react-native",
-        },
-      ],
-    },
-    {
-      title: "SpaceApps Waterloo",
-      dates: "April 28th - 30th, 2017",
-      location: "Waterloo, Ontario",
-      description:
-        "Developed Earthwatch, a web application which allows users in a plane to virtually see important points of interest about the world below them. They can even choose to fly away from their route and then fly back if they choose. Special thanks to CesiumJS for providing open source world and plane models.",
-      image:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/hackline/space-apps.png",
-      links: [
-        {
-          title: "Source",
-          icon: <Icons.github className="h-4 w-4" />,
-          href: "https://github.com/dillionverma/earthwatch",
-        },
-      ],
-    },
-    {
-      title: "MHacks 9",
-      dates: "March 24th - 26th, 2017",
-      location: "Ann Arbor, Michigan",
-      description:
-        "Developed Super Graphic Air Traffic, a VR website made to introduce people to the world of air traffic controlling. This project was built completely using THREE.js as well as a node backend server.",
-      image:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/hackline/mhacks-9.png",
-      mlh: "https://s3.amazonaws.com/logged-assets/trust-badge/2017/white.svg",
-      links: [
-        {
-          title: "Source",
-          icon: <Icons.github className="h-4 w-4" />,
-          href: "https://github.com/dillionverma/threejs-planes",
-        },
-      ],
-    },
-    {
-      title: "StartHacks I",
-      dates: "March 4th - 5th, 2017",
-      location: "Waterloo, Ontario",
-      description:
-        "Developed at StartHacks 2017, Recipic is a mobile app which allows you to take pictures of ingredients around your house, and it will recognize those ingredients using ClarifAI image recognition API and return possible recipes to make. Recipic recieved 1st place at the hackathon for best pitch and hack.",
-      image:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/hackline/starthacks.png",
-      win: "1st Place Winner",
-      mlh: "https://s3.amazonaws.com/logged-assets/trust-badge/2017/white.svg",
-      links: [
-        {
-          title: "Source (Mobile)",
-          icon: <Icons.github className="h-4 w-4" />,
-          href: "https://github.com/mattBlackDesign/recipic-ionic",
-        },
-        {
-          title: "Source (Server)",
-          icon: <Icons.github className="h-4 w-4" />,
-          href: "https://github.com/mattBlackDesign/recipic-rails",
-        },
-      ],
-    },
-    {
-      title: "QHacks II",
-      dates: "February 3rd - 5th, 2017",
-      location: "Kingston, Ontario",
-      description:
-        "Developed a mobile game which enables city-wide manhunt with random lobbies",
-      image:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/hackline/qhacks.png",
-      mlh: "https://s3.amazonaws.com/logged-assets/trust-badge/2017/white.svg",
-      links: [
-        {
-          title: "Source (Mobile)",
-          icon: <Icons.github className="h-4 w-4" />,
-          href: "https://github.com/dillionverma/human-huntr-react-native",
-        },
-        {
-          title: "Source (API)",
-          icon: <Icons.github className="h-4 w-4" />,
-          href: "https://github.com/mattBlackDesign/human-huntr-rails",
-        },
-      ],
-    },
-    {
-      title: "Terrible Hacks V",
-      dates: "November 26th, 2016",
-      location: "Waterloo, Ontario",
-      description:
-        "Developed a mock of Windows 11 with interesting notifications and functionality",
-      image:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/hackline/terrible-hacks-v.png",
-      links: [
-        {
-          title: "Source",
-          icon: <Icons.github className="h-4 w-4" />,
-          href: "https://github.com/justinmichaud/TerribleHacks2016-Windows11",
-        },
-      ],
-    },
-    {
-      title: "Portal Hackathon",
-      dates: "October 29, 2016",
-      location: "Kingston, Ontario",
-      description:
-        "Developed an internal widget for uploading assignments using Waterloo's portal app",
-      image:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/hackline/portal-hackathon.png",
-      links: [
-        {
-          title: "Source",
-          icon: <Icons.github className="h-4 w-4" />,
-          href: "https://github.com/UWPortalSDK/crowmark",
-        },
-      ],
-    },
-  ],
+    { canonicalId: "retailiq", title: "RetailIQ  -  Retail Data Platform & Revenue Analytics", categories: ["Data Engineering", "Analytics", "BI"], problem: "Retail transaction data needed to be transformed into structured, decision-ready analytics.", build: "Designed a modern retail analytics pipeline and dimensional model for revenue, product, and customer analysis.", scale: "100K+ retail transactions", approach: ["Python", "SQL", "Airflow", "dbt", "Snowflake", "Power BI", "Star Schema", "RFM Segmentation"], outcome: "Created analytics-ready models and interactive BI reporting across 8+ business KPIs.", featured: true, featuredMetric: "100K+", featuredMetricLabel: "Retail transactions" },
+    { canonicalId: "churnshield", title: "ChurnShield  -  Customer Churn Prediction & Analytics Pipeline", categories: ["Data Engineering", "Machine Learning", "BI"], problem: "Identify customers at risk of churn and surface the factors associated with that risk.", build: "Created an end-to-end churn analytics and machine learning pipeline.", scale: "Approximately 50K+ customer records and 15+ behavioral and transactional features", approach: ["Python", "SQL", "Kafka", "Snowflake", "scikit-learn", "Power BI", "Random Forest", "Gradient Boosting"], outcome: "Reached approximately 89% classification accuracy and produced interpretable customer-risk segments.", featuredMetric: "89%", featuredMetricLabel: "Classification accuracy" },
+    { canonicalId: "campusguide-rag", title: "CampusGuide RAG  -  Grounded Institutional Knowledge Assistant", categories: ["AI", "RAG"], problem: "Institutional policies and student-services information were distributed across documents and difficult to retrieve quickly.", build: "Built a retrieval-augmented assistant that indexes institutional documents, retrieves relevant context through semantic search, and generates grounded responses.", approach: ["Python", "LangChain", "Elasticsearch", "Vector Search", "Document Ingestion", "Chunking", "Embeddings", "Prompt Workflows"], outcome: "Created a semantic retrieval workflow that returns contextual answers grounded in institutional content.", featured: true, featuredMetric: "Grounded Q&A", featuredMetricLabel: "Semantic document retrieval" },
+    { canonicalId: "findocs-rag", title: "FinDocs RAG  -  Financial Document Q&A System", categories: ["AI", "RAG", "Financial Services"], problem: "Searching large collections of financial policy and compliance documents manually is inefficient.", build: "Developed a document intelligence application with source-aware retrieval.", scale: "Approximately 500+ financial documents", approach: ["Python", "LangChain", "FAISS", "OpenAI API", "Streamlit", "Chunk Overlap", "Metadata-Aware Retrieval", "Semantic Search"], outcome: "Enabled contextual question answering with retrieval traceability and source-aware responses." },
+    { canonicalId: "cta-transitpulse", title: "CTA TransitPulse  -  Chicago Transit Analytics", categories: ["Analytics", "Data Engineering"], problem: "Transform transit vehicle and arrival-prediction data into usable operational insights.", build: "Designed an analytical data model and interactive transit dashboard.", scale: "17K+ vehicle records, 69K+ arrival predictions, and 14 CTA routes", approach: ["Python", "SQL", "Pandas", "SQLite", "Star Schema", "Streamlit", "Plotly", "10+ Analytical SQL Queries"], outcome: "Enabled route-level KPI monitoring, trend analysis, heatmaps, and geographic exploration.", featuredMetric: "69K+", featuredMetricLabel: "Arrival predictions analyzed" },
+    { canonicalId: "medicost", title: "MediCost  -  Healthcare Cost Prediction & Risk Analytics", categories: ["Data Science", "Analytics"], problem: "Understand cost drivers and identify high-risk healthcare and member segments.", build: "Developed a regression and risk-stratification workflow with executive reporting.", scale: "Approximately 100K+ records", approach: ["Python", "SQL", "R", "Pandas", "scikit-learn", "Tableau / Power BI", "EDA", "Feature Engineering", "Regression", "Risk Stratification"], outcome: "Built healthcare cost-prediction models and delivered an executive analytics dashboard with 10+ KPIs." },
+    { canonicalId: "finstream", title: "FinStream  -  Credit Card Transaction Analytics Pipeline", categories: ["Data Engineering", "Financial Analytics"], problem: "Transform raw transaction-level data into quality-tested analytical models.", build: "Created a layered analytics pipeline with a star schema and tested transformations.", scale: "Approximately 100K+ simulated credit-card transactions", approach: ["Python", "SQL", "Snowflake", "dbt", "Pandas", "Rolling Spend", "Merchant Aggregation", "Geo-Anomaly Features"], outcome: "Created a structured analytics layer supporting transaction behavior and anomaly analysis." },
+    { canonicalId: "partsflow", title: "PartsFlow  -  Demand Forecasting & Replenishment Engine", categories: ["Data Science", "Forecasting", "Analytics"], problem: "Improve SKU-level demand forecasting and inventory replenishment decisions.", build: "Built Holt-Winters forecasts and an accuracy-versus-cost dashboard.", scale: "Simulated 40-SKU, three-year demand network", approach: ["Python", "DuckDB", "statsmodels", "Holt-Winters", "Streamlit"], outcome: "Connected forecast accuracy to operational inventory outcomes.", metrics: ["19.1% WAPE vs. 21.6% naive baseline", "Outperformed the baseline on 30 of 40 SKUs", "Simulated fill rate improved from 82% to 89%", "Approximately 40% lower lost sales"], featured: true, featuredMetric: "19.1% WAPE", featuredMetricLabel: "Compared with 21.6% baseline" },
+    { canonicalId: "gridwatt", title: "GridWatt  -  Smart Meter Energy Analytics Pipeline", categories: ["Big Data", "Data Engineering"], problem: "Process high-volume smart-meter data efficiently for downstream analysis.", build: "Created a partitioned data lake and incremental warehouse-loading pipeline.", scale: "Approximately 10M+ smart-meter readings", approach: ["PySpark", "Python", "AWS S3", "Parquet", "Snowflake", "SQL", "Incremental Loading"], outcome: "Created scalable aggregate analytics for consumption, peak demand, and household segments." },
+    { canonicalId: "healthsync", title: "HealthSync  -  Healthcare Claims Data Platform", categories: ["Data Engineering", "Databricks"], problem: "Integrate healthcare claims and patient data from multiple sources while maintaining data quality.", build: "Created an ingestion, validation, and Delta Lake processing workflow.", scale: "Approximately 80K+ records across approximately five datasets", approach: ["Python", "Databricks", "PySpark", "Kafka", "REST API", "Delta Lake", "SQL"], outcome: "Reached approximately 97% data completeness and enabled analytics for claims cost, patient trends, and quality monitoring." },
+    { canonicalId: "bandaid-maps", title: "Bandaid Maps  -  AI-Assisted Healthcare Navigation", categories: ["AI", "Healthcare", "Hackathon"], problem: "Help users understand health readiness and locate appropriate nearby healthcare resources.", build: "Created an AI-assisted healthcare navigation application during a 36-hour LA Hacks build at UCLA.", approach: ["FastAPI", "React", "Google Gemini API", "Melissa APIs", "MongoDB", "Health Readiness Score", "Emergency Action Plan", "Interactive Map"], outcome: "Won the Melissa Data Challenge at LA Hacks 2025.", badge: "Winner  -  Melissa Data Challenge, LA Hacks 2025", featured: true, featuredMetric: "Winner", featuredMetricLabel: "LA Hacks 2025 Melissa Data Challenge" },
+    { canonicalId: "here-road-sign-validation", title: "Road Sign Validation & Geospatial Intelligence", categories: ["Hackathon", "Applied Data Science", "Computer Vision", "Geospatial"], problem: "Road sign and road network information can contain missing, misplaced, or inconsistent records that affect map quality and routing accuracy.", build: "Built an automated road sign validation workflow combining computer vision, clustering, and HERE geospatial APIs during the 2025 HERE Technologies Chicago Hackathon, representing Illinois Institute of Technology.", approach: ["OpenCV", "Object Detection", "Computer Vision", "Clustering", "HERE APIs", "Routing APIs", "Probe Data", "Geospatial Data", "Backend Data Pipeline"], outcome: "Reached the finalist stage while applying computer vision, routing data, and geospatial pipelines to urban transportation infrastructure under hackathon time constraints.", badge: "Finalist - HERE Technologies Chicago Hackathon 2025" },
+    { canonicalId: "food-delivery-database", title: "Scalable Food Delivery Database System", categories: ["Database Engineering"], problem: "Design a relational system that supports structured food-delivery transactions and analytical reporting.", build: "Designed a normalized relational data model for transaction processing and reporting.", approach: ["SQL", "Relational Modeling", "Normalization", "3NF", "Query Optimization"], outcome: "Created a normalized database structure supporting scalable transaction handling and analytical queries." },
+    { canonicalId: "federated-iot-intrusion-detection", title: "Hybrid Transformer and XGBoost Model for Federated IoT Intrusion Detection", categories: ["Research", "Machine Learning", "Cybersecurity"], problem: "IoT intrusion detection needs strong predictive performance while federated learning introduces privacy and communication constraints.", build: "Developed a hybrid Transformer and XGBoost intrusion-detection architecture for distributed IoT learning.", approach: ["Transformer", "XGBoost", "Federated Learning", "LoRA", "IoT", "Cybersecurity", "Machine Learning"], outcome: "Achieved approximately 98% detection performance with approximately 90% lower communication overhead.", venue: "2026 IEEE 5th International Conference on AI in Cybersecurity (ICAIC)", paperUrl: "https://doi.org/10.1109/ICAIC67076.2026.11395795", research: true, featuredMetric: "~98% detection", featuredMetricLabel: "~90% lower communication overhead" },
+  ] as Project[],
+  publicationsAchievements: [
+    { type: "Achievement / Award", title: "Melissa Data Challenge Winner", organization: "LA Hacks 2025   ·   UCLA", date: "2025", project: "Bandaid Maps", badge: "Winner", description: "Won the Melissa Data Challenge for Bandaid Maps, an AI-assisted healthcare navigation application built during a 36-hour hackathon." },
+    { type: "Participation", title: "AnDackaThon 2026", organization: "Analytics & Data Summit 2026   ·   Oracle Redwood Shores / San Jose State University", date: "2026", badge: "Participant   ·   Datathon", description: "Participated in the Datathon track, working with real-world datasets and Oracle analytics and data technologies under a compressed hackathon timeline." },
+    { type: "Participation", title: "HERE Technologies Chicago Hackathon Finalist", organization: "HERE Technologies Chicago Hackathon", date: "2025", badge: "Finalist", description: "Reached the finalist stage with a road sign validation and geospatial intelligence project." },
+  ] as PublicationAchievement[],
+  education: [
+    { school: "Illinois Institute of Technology", initials: "IIT", location: "Chicago, IL", degree: "Master of Data Science", gpa: "3.81", start: "Aug 2024", end: "May 2026" },
+    { school: "Anna University", initials: "AU", affiliatedCollege: "St. Joseph's College of Engineering", location: "Chennai, India", degree: "Bachelor of Engineering", field: "Electronics and Communication Engineering", gpa: "3.65", start: "Aug 2018", end: "May 2022" },
+  ] as Education[],
+  certifications: [
+    { name: "Microsoft Certified: Fabric Data Engineer Associate", issuer: "Microsoft", initials: "MS", subtitle: "Exam DP-700" },
+    { name: "Google Cloud Associate Cloud Engineer", issuer: "Google Cloud", initials: "GCP", date: "May 2023", credentialId: "73403999" },
+  ] as Certification[],
+  leadership: [
+    { organization: "IIT Product Management Club", initials: "PMC", roles: [{ title: "Vice President", start: "Aug 2025", end: "May 2026" }], description: "Co-led the club with the President, supporting product-building activities, AI-oriented initiatives, workshops, case studies, and product work connecting strategy, data, and engineering." },
+    { organization: "Indian Student Association - Illinois Tech", initials: "ISA", roles: [{ title: "Vice President", start: "Jan 2026", end: "May 2026" }, { title: "Finance Head", start: "Aug 2025", end: "Dec 2025" }, { title: "Finance Team Member", start: "Feb 2025", end: "Jul 2025" }], description: "Supported event management, budgeting, expense tracking, reimbursements, organization operations, and executive leadership across three roles." },
+    { organization: "ACM Illinois Tech", initials: "ACM", roles: [{ title: "Treasurer", start: "May 2025", end: "May 2026" }, { title: "Vice Treasurer", start: "Nov 2024", end: "May 2025" }], description: "Managed budget planning, expense tracking, reimbursements, sponsor and vendor payments, and chapter operations, including ScarletHacks organizing." },
+    { organization: "The Optical Society (OSA)", initials: "OSA", roles: [{ title: "President", start: "Jun 2021", end: "May 2022" }, { title: "Treasurer", start: "Jun 2020", end: "Jun 2021" }], description: "As President, led a 16 to 17 member student organization and coordinated approximately 10 to 12 technical events and workshops with faculty, members, and sponsors. As Treasurer, managed budgeting and financial coordination for chapter activities and supported sponsorship-related planning." },
+  ] as LeadershipEntry[],
+  githubActivity: null as GitHubActivity | null,
+  writing: { personalPostSlugs: [] as string[] },
+  hackathons: [] as Hackathon[],
 } as const;

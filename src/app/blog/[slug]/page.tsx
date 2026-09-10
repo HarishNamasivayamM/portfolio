@@ -9,16 +9,22 @@ import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 function getSortedPosts() {
-  return [...allPosts].sort((a, b) => {
+  return allPosts
+    .filter((post) =>
+      DATA.writing.personalPostSlugs.includes(
+        post._meta.path.replace(/\.mdx$/, "")
+      )
+    )
+    .sort((a, b) => {
     if (new Date(a.publishedAt) > new Date(b.publishedAt)) {
       return -1;
     }
     return 1;
-  });
+    });
 }
 
 export async function generateStaticParams() {
-  return allPosts.map((post) => ({
+  return getSortedPosts().map((post) => ({
     slug: post._meta.path.replace(/\.mdx$/, ""),
   }));
 }
@@ -31,7 +37,9 @@ export async function generateMetadata({
   }>;
 }): Promise<Metadata | undefined> {
   const { slug } = await params;
-  const post = allPosts.find((p) => p._meta.path.replace(/\.mdx$/, "") === slug);
+  const post = getSortedPosts().find(
+    (p) => p._meta.path.replace(/\.mdx$/, "") === slug
+  );
 
   if (!post) {
     return undefined;
@@ -52,11 +60,11 @@ export async function generateMetadata({
       description,
       type: "article",
       publishedTime,
-      url: `${DATA.url}/blog/${slug}`,
+      ...(DATA.url ? { url: `${DATA.url}/blog/${slug}` } : {}),
       ...(image && {
         images: [
           {
-            url: `${DATA.url}${image}`,
+            url: image.startsWith("http") ? image : `${DATA.url}${image}`,
           },
         ],
       }),
@@ -66,7 +74,7 @@ export async function generateMetadata({
       title,
       description,
       ...(image && {
-        images: [`${DATA.url}${image}`],
+        images: [image.startsWith("http") ? image : `${DATA.url}${image}`],
       }),
     },
   };
@@ -103,13 +111,15 @@ export default async function Blog({
     datePublished: post.publishedAt,
     dateModified: post.publishedAt,
     description: post.summary,
-    image: post.image
-      ? `${DATA.url}${post.image}`
-      : `${DATA.url}/blog/${slug}/opengraph-image`,
-    url: `${DATA.url}/blog/${slug}`,
+    ...(post.image
+      ? { image: post.image.startsWith("http") ? post.image : `${DATA.url}${post.image}` }
+      : DATA.url
+        ? { image: `${DATA.url}/blog/${slug}/opengraph-image` }
+        : {}),
+    ...(DATA.url ? { url: `${DATA.url}/blog/${slug}` } : {}),
     author: {
       "@type": "Person",
-      name: DATA.name,
+      name: post.author || "Template sample author",
     },
   }).replace(/</g, "\\u003c");
 

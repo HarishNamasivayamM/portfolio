@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { motion, Variants } from "motion/react";
+import { motion, useReducedMotion, Variants } from "motion/react";
 import { useMemo } from "react";
 
 interface BlurFadeTextProps {
@@ -32,6 +32,7 @@ const BlurFadeText = ({
     visible: { y: 0, opacity: 1, filter: "blur(0px)" },
   };
   const combinedVariants = variant || defaultVariants;
+  const shouldReduceMotion = useReducedMotion();
   const characters = useMemo(() => Array.from(text), [text]);
 
   if (animateByCharacter) {
@@ -45,15 +46,15 @@ const BlurFadeText = ({
           return (
             <motion.span
               key={i}
-              initial="hidden"
+              initial={shouldReduceMotion ? "visible" : "hidden"}
               animate="visible"
               variants={charVariants}
               transition={{
-                duration,
-                delay: delay + i * characterDelay,
+                duration: shouldReduceMotion ? 0 : duration,
+                delay: shouldReduceMotion ? 0 : delay + i * characterDelay,
                 ease: "easeOut",
               }}
-              className={cn("inline-block", className)}
+              className={cn("inline-block print:!translate-y-0 print:!opacity-100 print:!blur-none", className)}
               style={{ width: char.trim() === "" ? "0.2em" : "auto" }}
             >
               {char}
@@ -67,15 +68,15 @@ const BlurFadeText = ({
   return (
     <div className="flex">
       <motion.span
-        initial="hidden"
+        initial="visible"
         animate="visible"
         variants={combinedVariants}
         transition={{
-          duration,
-          delay,
+          duration: shouldReduceMotion ? 0 : duration,
+          delay: shouldReduceMotion ? 0 : delay,
           ease: "easeOut",
         }}
-        className={cn("inline-block", className)}
+        className={cn("inline-block print:!translate-y-0 print:!opacity-100 print:!blur-none", className)}
       >
         {text}
       </motion.span>

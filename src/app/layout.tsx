@@ -1,4 +1,7 @@
 import Navbar from "@/components/navbar";
+import SectionRail from "@/components/section-rail";
+import SearchCommand from "@/components/search-command";
+import InitialScroll from "@/components/initial-scroll";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { DATA } from "@/data/resume";
@@ -21,16 +24,16 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(DATA.url),
+  ...(DATA.url ? { metadataBase: new URL(DATA.url) } : {}),
   title: {
-    default: DATA.name,
+    default: `${DATA.name} | Data, Analytics & AI`,
     template: `%s | ${DATA.name}`,
   },
   description: DATA.description,
   openGraph: {
-    title: `${DATA.name}`,
+    title: `${DATA.name} | Data, Analytics & AI`,
     description: DATA.description,
-    url: DATA.url,
+    ...(DATA.url ? { url: DATA.url } : {}),
     siteName: `${DATA.name}`,
     locale: "en_US",
     type: "website",
@@ -47,7 +50,7 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: `${DATA.name}`,
+    title: `${DATA.name} | Data, Analytics & AI`,
     card: "summary_large_image",
   },
   verification: {
@@ -65,7 +68,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased relative",
+          "relative min-h-screen overflow-x-clip bg-background font-sans antialiased",
           geist.variable,
           geistMono.variable
         )}
@@ -83,9 +86,14 @@ export default function RootLayout({
                 }}
               />
             </div>
-            <div className="relative z-10 max-w-2xl mx-auto py-12 pb-24 sm:py-24 px-6">
-              {children}
+            <div className="relative z-10 mx-auto grid w-full max-w-[1300px] grid-cols-1 xl:grid-cols-[180px_minmax(0,940px)_180px]">
+              <div className="hidden xl:block" aria-hidden="true" />
+              <div className="w-full px-6 py-12 pb-36 sm:py-24 sm:pb-40">{children}</div>
+              <div className="hidden xl:block" aria-hidden="true" />
             </div>
+            <SectionRail />
+            <SearchCommand />
+            <InitialScroll />
             <Navbar />
           </TooltipProvider>
         </ThemeProvider>

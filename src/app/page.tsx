@@ -1,147 +1,101 @@
-/* eslint-disable @next/next/no-img-element */
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DATA } from "@/data/resume";
-import Link from "next/link";
 import Markdown from "react-markdown";
 import ContactSection from "@/components/section/contact-section";
-import HackathonsSection from "@/components/section/hackathons-section";
+import CertificationsSection from "@/components/section/certifications-section";
+import EducationSection from "@/components/section/education-section";
+import GitHubActivitySection from "@/components/section/github-activity-section";
+import LeadershipSection from "@/components/section/leadership-section";
 import ProjectsSection from "@/components/section/projects-section";
+import PublicationsAchievementsSection from "@/components/section/publications-achievements-section";
+import SkillsSection from "@/components/section/skills-section";
 import WorkSection from "@/components/section/work-section";
-import { ArrowUpRight } from "lucide-react";
+import WritingSection from "@/components/section/writing-section";
+import ValueSection from "@/components/section/value-section";
+import { FaMicrosoft } from "react-icons/fa";
+import { SiGooglecloud } from "react-icons/si";
 
 const BLUR_FADE_DELAY = 0.04;
 
 export default function Page() {
   return (
-    <main className="min-h-dvh flex flex-col gap-14 relative">
-      <section id="hero">
-        <div className="mx-auto w-full max-w-2xl space-y-8">
-          <div className="gap-2 gap-y-6 flex flex-col md:flex-row justify-between">
-            <div className="gap-2 flex flex-col order-2 md:order-1">
-              <BlurFadeText
-                delay={BLUR_FADE_DELAY}
-                className="text-3xl font-semibold tracking-tighter sm:text-4xl lg:text-5xl"
-                yOffset={8}
-                text={`Hi, I'm ${DATA.name.split(" ")[0]}`}
-              />
-              <BlurFadeText
-                className="text-muted-foreground max-w-[600px] md:text-lg lg:text-xl"
-                delay={BLUR_FADE_DELAY}
-                text={DATA.description}
-              />
-            </div>
-            <BlurFade delay={BLUR_FADE_DELAY} className="order-1 md:order-2">
-              <Avatar className="size-24 md:size-32 border rounded-full shadow-lg ring-4 ring-muted">
-                <AvatarImage alt={DATA.name} src={DATA.avatarUrl} />
-                <AvatarFallback>{DATA.initials}</AvatarFallback>
-              </Avatar>
+    <main className="relative flex min-h-dvh flex-col gap-14 pb-24 sm:gap-16 sm:pb-20">
+      <section id="hero" className="w-full">
+        <div className="grid items-start justify-start gap-10 md:grid-cols-[minmax(0,640px)_auto] lg:gap-14">
+          <div className="order-2 min-w-0 max-w-[640px] space-y-4 md:order-1">
+            <BlurFadeText
+              className="text-sm font-medium tracking-wide text-primary"
+              delay={BLUR_FADE_DELAY}
+              text={DATA.role}
+            />
+            <BlurFade delay={BLUR_FADE_DELAY} yOffset={8}>
+              <h1 className="text-3xl font-semibold leading-tight tracking-tighter sm:text-4xl lg:text-5xl">
+                Hi, I&apos;m {DATA.name.split(" ")[0]}
+              </h1>
             </BlurFade>
+            <BlurFade delay={BLUR_FADE_DELAY * 2}>
+              <p className="max-w-[600px] text-base leading-relaxed text-muted-foreground md:text-lg lg:text-xl">{DATA.breadth}</p>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{DATA.description}</p>
+              <p className="mt-1 text-sm text-muted-foreground">{DATA.location}</p>
+            </BlurFade>
+            <div className="grid max-w-xl grid-cols-1 gap-2 pt-2 text-sm sm:grid-cols-2">
+              {DATA.certifications.slice(0, 2).map((certification) => (
+                <div key={certification.name} className="flex items-start gap-2.5 rounded-md border border-primary/20 bg-primary/[0.035] px-3 py-2 dark:bg-primary/[0.07]">
+                  {certification.issuer === "Google Cloud" ? <SiGooglecloud className="mt-0.5 size-4 shrink-0 text-[#4285f4]" aria-hidden="true" /> : <FaMicrosoft className="mt-0.5 size-4 shrink-0 text-[#737373] dark:text-[#d4d4d4]" aria-hidden="true" />}
+                  <div><p className="text-sm font-semibold leading-snug text-foreground">{certification.name}</p>
+                  <p className="mt-0.5 text-xs text-muted-foreground">{certification.issuer}{certification.subtitle && `   ·   ${certification.subtitle}`}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
+          <BlurFade delay={BLUR_FADE_DELAY} className="order-1 mx-auto md:order-2 md:mx-0 md:pt-1">
+            <Avatar className="size-24 rounded-full border border-primary/20 bg-primary/5 shadow-lg ring-4 ring-muted md:size-32 dark:bg-primary/10">
+              <AvatarImage alt="Profile photo placeholder" src={DATA.avatarUrl} />
+              <AvatarFallback className="bg-primary/5 text-lg font-semibold tracking-tight text-primary dark:bg-primary/10 md:text-2xl">{DATA.initials}</AvatarFallback>
+            </Avatar>
+          </BlurFade>
         </div>
       </section>
-      <section id="about">
+      <section id="about" className="w-full max-w-[52rem]">
         <div className="flex min-h-0 flex-col gap-y-4">
-          <BlurFade delay={BLUR_FADE_DELAY * 3}>
-            <h2 className="text-xl font-bold">About</h2>
+          <BlurFade delay={BLUR_FADE_DELAY}>
+            <h2 className="text-2xl font-bold tracking-tight">About</h2>
           </BlurFade>
-          <BlurFade delay={BLUR_FADE_DELAY * 4}>
-            <div className="prose max-w-full text-pretty font-sans leading-relaxed text-muted-foreground dark:prose-invert">
-              <Markdown>
-                {DATA.summary}
-              </Markdown>
+          <BlurFade delay={BLUR_FADE_DELAY * 2}>
+            <div className="prose max-w-[760px] text-pretty font-sans text-[1.0625rem] leading-8 text-muted-foreground dark:prose-invert">
+              <Markdown>{DATA.summary}</Markdown>
             </div>
           </BlurFade>
         </div>
       </section>
-      <section id="work">
-        <div className="flex min-h-0 flex-col gap-y-6">
-          <BlurFade delay={BLUR_FADE_DELAY * 5}>
-            <h2 className="text-xl font-bold">Work Experience</h2>
-          </BlurFade>
-          <BlurFade delay={BLUR_FADE_DELAY * 6}>
-            <WorkSection />
-          </BlurFade>
-        </div>
-      </section>
-      <section id="education">
-        <div className="flex min-h-0 flex-col gap-y-6">
-          <BlurFade delay={BLUR_FADE_DELAY * 7}>
-            <h2 className="text-xl font-bold">Education</h2>
-          </BlurFade>
-          <div className="flex flex-col gap-8">
-            {DATA.education.map((education, index) => (
-              <BlurFade
-                key={education.school}
-                delay={BLUR_FADE_DELAY * 8 + index * 0.05}
-              >
-                <Link
-                  href={education.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-x-3 justify-between group"
-                >
-                  <div className="flex items-center gap-x-3 flex-1 min-w-0">
-                    {education.logoUrl ? (
-                      <img
-                        src={education.logoUrl}
-                        alt={education.school}
-                        className="size-8 md:size-10 p-1 border rounded-full shadow ring-2 ring-border overflow-hidden object-contain flex-none"
-                      />
-                    ) : (
-                      <div className="size-8 md:size-10 p-1 border rounded-full shadow ring-2 ring-border bg-muted flex-none" />
-                    )}
-                    <div className="flex-1 min-w-0 flex flex-col gap-0.5">
-                      <div className="font-semibold leading-none flex items-center gap-2">
-                        {education.school}
-                        <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" aria-hidden />
-                      </div>
-                      <div className="font-sans text-sm text-muted-foreground">
-                        {education.degree}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-1 text-xs tabular-nums text-muted-foreground text-right flex-none">
-                    <span>
-                      {education.start} - {education.end}
-                    </span>
-                  </div>
-                </Link>
-              </BlurFade>
-            ))}
-          </div>
-        </div>
-      </section>
-      <section id="skills">
-        <div className="flex min-h-0 flex-col gap-y-4">
-          <BlurFade delay={BLUR_FADE_DELAY * 9}>
-            <h2 className="text-xl font-bold">Skills</h2>
-          </BlurFade>
-          <div className="flex flex-wrap gap-2">
-            {DATA.skills.map((skill, id) => (
-              <BlurFade key={skill.name} delay={BLUR_FADE_DELAY * 10 + id * 0.05}>
-                <div className="border bg-background border-border ring-2 ring-border/20 rounded-xl h-8 w-fit px-4 flex items-center gap-2">
-                  {skill.icon && <skill.icon className="size-4 rounded overflow-hidden object-contain" />}
-                  <span className="text-foreground text-sm font-medium">{skill.name}</span>
-                </div>
-              </BlurFade>
-            ))}
-          </div>
-        </div>
-      </section>
-      <section id="projects">
-        <BlurFade delay={BLUR_FADE_DELAY * 11}>
-          <ProjectsSection />
+      <ValueSection />
+      <section id="experience" className="flex w-full flex-col gap-5">
+        <BlurFade delay={BLUR_FADE_DELAY}>
+          <h2 className="text-2xl font-bold tracking-tight">Work Experience</h2>
+        </BlurFade>
+        <BlurFade delay={BLUR_FADE_DELAY * 2}>
+          <WorkSection />
         </BlurFade>
       </section>
-      <section id="hackathons">
-        <BlurFade delay={BLUR_FADE_DELAY * 13}>
-          <HackathonsSection />
-        </BlurFade>
-      </section>
-      <section id="contact">
-        <BlurFade delay={BLUR_FADE_DELAY * 16}>
+      <div className="w-full">
+        <SkillsSection coreStack={DATA.coreStack} groups={DATA.skillGroups} />
+      </div>
+      <BlurFade delay={BLUR_FADE_DELAY}>
+        <ProjectsSection />
+      </BlurFade>
+      <PublicationsAchievementsSection entries={DATA.publicationsAchievements} research={DATA.projects.find((project) => project.research)} />
+      <div className="mx-auto w-full max-w-[52rem]">
+        <EducationSection entries={DATA.education} />
+      </div>
+      <CertificationsSection certifications={DATA.certifications} delay={BLUR_FADE_DELAY} />
+      <LeadershipSection entries={DATA.leadership} />
+      <GitHubActivitySection config={DATA.githubActivity} />
+      <WritingSection personalPostSlugs={DATA.writing.personalPostSlugs} />
+      <section id="contact" className="mx-auto w-full max-w-3xl scroll-mb-24 sm:scroll-mb-20">
+        <BlurFade delay={BLUR_FADE_DELAY}>
           <ContactSection />
         </BlurFade>
       </section>

@@ -4,6 +4,10 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+html {
+  scroll-behavior: smooth;
+}
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -40,6 +44,9 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-analytics: var(--analytics);
+  --color-research: var(--research);
+  --color-award: var(--award);
 }
 
 :root {
@@ -50,18 +57,21 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
+  --primary: oklch(0.546 0.245 262.881);
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --accent: oklch(0.97 0.014 254.604);
+  --accent-foreground: oklch(0.424 0.199 265.638);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --ring: oklch(0.546 0.245 262.881);
+  --analytics: oklch(0.511 0.096 186.391);
+  --research: oklch(0.491 0.27 292.581);
+  --award: oklch(0.555 0.163 48.998);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -84,18 +94,21 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
+  --primary: oklch(0.707 0.165 254.624);
+  --primary-foreground: oklch(0.145 0.03 265);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
   --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  --accent: oklch(0.282 0.091 267.935);
+  --accent-foreground: oklch(0.882 0.059 254.128);
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  --ring: oklch(0.707 0.165 254.624);
+  --analytics: oklch(0.704 0.14 182.503);
+  --research: oklch(0.702 0.183 293.541);
+  --award: oklch(0.769 0.188 70.08);
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
@@ -118,6 +131,42 @@
 
   body {
     @apply bg-background text-foreground;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 640px) {
+    body {
+      font-size: 1rem;
+    }
+  }
+
+  @media print {
+    .portfolio-dock,
+    [data-floating-control] {
+      display: none !important;
+    }
+
+    body {
+      font-size: 11pt;
+      print-color-adjust: exact;
+    }
+
+    main * {
+      animation: none !important;
+      transition: none !important;
+    }
+
+    main div,
+    main span {
+      opacity: 1 !important;
+      filter: none !important;
+      transform: none !important;
+    }
+
+    article {
+      break-inside: avoid;
+    }
   }
 
   /* Shiki dual theme support */
