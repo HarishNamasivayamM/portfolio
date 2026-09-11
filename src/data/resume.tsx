@@ -69,7 +69,7 @@ export const DATA = {
   url: "https://harishmuthuswamy.com",
   location: "Chicago, IL",
   description: "My work spans data pipelines, analytics, machine learning, MLOps, RAG, and agentic workflows, from ingestion and modeling through deployment.",
-  summary: "I'm drawn to the part of data work where source systems don't line up, reporting is manual, or the business question is still taking shape.\n\nMy experience spans KYC data pipelines, manufacturing sensor analytics, BI, predictive modeling, and RAG/agentic AI. I focus on making data trustworthy and carrying the work through testing, deployment, and documentation so people can use it.",
+  summary: "I build data systems that make messy operational data easier to trust, understand, and use.\n\nMy work has covered data engineering, analytics, predictive modeling, and applied AI across financial services and manufacturing. I have worked on everything from data pipelines and reporting to ML workflows and RAG applications. What matters to me is building something that works well, can be maintained, and is actually useful to the people using it.",
   avatarUrl: "",
   heroHighlights: [
     { label: "IEEE Research", kind: "credential" },
