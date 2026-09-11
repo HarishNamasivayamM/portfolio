@@ -10,6 +10,11 @@
       "source": "/campusguiderag",
       "destination": "https://campusguide-rag-grounded-institutional-knowledge-assistant-c4v.streamlit.app/",
       "permanent": false
+    },
+    {
+      "source": "/campusguiderag/",
+      "destination": "https://campusguide-rag-grounded-institutional-knowledge-assistant-c4v.streamlit.app/",
+      "permanent": false
     }
   ],
   "rewrites": [
