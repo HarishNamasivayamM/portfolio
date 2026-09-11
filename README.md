@@ -1,45 +1,107 @@
-# Harish Namasivayam Muthuswamy  -  Portfolio
+# Harish Namasivayam Muthuswamy
 
-This is Harish Namasivayam Muthuswamy's portfolio for work across data engineering, analytics and BI, data science, machine learning, AI/RAG applications, and research.
+### Data Engineering · Analytics · Machine Learning · Applied AI
 
-## Portfolio Tech Stack
+A modern personal portfolio showcasing my work across data engineering, analytics and BI, data science, machine learning, applied AI, research, and cloud platforms.
 
-This website is built with:
+[GitHub](https://github.com/HarishNamasivayamM) · [LinkedIn](https://www.linkedin.com/in/harish-namasivayam-muthuswamy/) · [Schedule a conversation](https://calendly.com/harishnamasivayam/quick-chat)
 
-- Next.js 16 and React 19
-- TypeScript
-- Tailwind CSS
-- shadcn/ui primitives
-- Magic UI components
-- Motion for restrained animations
-- Content Collections for the retained writing infrastructure
+---
 
-## Features
+## About the Portfolio
 
-- Responsive portfolio layout
-- Light and dark mode
-- Outcome-driven work experience
-- Where I Add Value capability overview
-- Featured and secondary project case studies
-- Lightweight project category filters, including the HERE Technologies hackathon project
-- IEEE research and paper-link support
-- Certifications and leadership progression
-- Desktop section rail, five-function bottom dock, and client-side search (Ctrl/Cmd+K or `/`)
-- Accessible navigation and focus states
-- Print-friendly output with floating controls hidden
+This portfolio is designed as more than a resume on the web. It brings together my professional experience, technical capabilities, selected projects, research, certifications, leadership, and ways to connect in one place.
 
-## Getting Started
+The site is intentionally structured for two kinds of visitors:
 
-Install dependencies and start the local development server:
+- **Recruiters and hiring teams** can quickly understand my background, experience, certifications, and strongest areas of work.
+- **Engineers and technical reviewers** can explore deeper project details, technical stacks, research, architecture, and implementation choices.
+
+## What You'll Find
+
+- **About** — a concise introduction to the problems and systems I like working on
+- **Where I Add Value** — a high-level view of my work across data engineering, analytics, ML, and applied AI
+- **Work Experience** — compact role summaries with expandable details
+- **Technical Skills** — a curated core stack with deeper capability views across engineering, analytics, ML, cloud, AI, databases, and delivery
+- **Projects** — featured and supporting projects with technology tags, outcomes, and links where available
+- **Research & Recognition** — IEEE research, hackathon wins, finalist recognition, and supporting details
+- **Education & Certifications** — academic background and professional certifications
+- **Leadership** — leadership and community involvement
+- **Contact** — quick email, social links, and scheduling options
+
+## Built With
+
+| Area | Stack |
+| --- | --- |
+| Framework | Next.js 16, React 19 |
+| Language | TypeScript |
+| Styling | Tailwind CSS 4 |
+| UI | shadcn/ui primitives, Magic UI components |
+| Icons | Lucide React, React Icons, local SVG assets |
+| Motion | Motion |
+| Content | Content Collections / MDX infrastructure |
+| Theme | next-themes |
+
+## Key Experience Features
+
+- Responsive desktop, tablet, and mobile layouts
+- Light and dark themes
+- Section-aware desktop navigation
+- Floating bottom dock navigation
+- Expandable work-experience details
+- Progressive-disclosure technical skills explorer
+- Project filtering and reusable project cards
+- Research and recognition cards with expandable details
+- Search support with keyboard shortcuts
+- Accessible focus states and keyboard interactions
+- Print-friendly behavior with floating controls hidden
+- Contact flow with email fallback and scheduling support
+
+## Project Structure
+
+```text
+src/
+├── app/                  # App Router pages and global application structure
+├── components/
+│   ├── section/          # Portfolio sections
+│   ├── ui/               # Reusable UI primitives and local assets
+│   └── magicui/          # Magic UI components and motion utilities
+├── data/
+│   └── resume.tsx        # Centralized portfolio content and typed data
+└── ...
+```
+
+Most portfolio content is maintained in:
+
+```text
+src/data/resume.tsx
+```
+
+That file acts as the main source of truth for experience, skills, projects, research, certifications, contact information, and related metadata.
+
+## Running Locally
+
+### Prerequisites
+
+- Node.js 18+
+- pnpm
+
+### Install and run
 
 ```bash
 pnpm install
 pnpm dev
 ```
 
-Open `http://localhost:3000` in a browser.
+Open:
 
-Run the production checks with:
+```text
+http://localhost:3000
+```
+
+## Quality Checks
+
+Before shipping changes, run:
 
 ```bash
 pnpm exec tsc --noEmit --incremental false
@@ -47,24 +109,11 @@ pnpm lint
 pnpm build
 ```
 
-## Project Structure
+## Adding or Updating Projects
 
-- `src/data/resume.tsx`  -  centralized portfolio content and typed data
-- `src/app/page.tsx`  -  homepage composition and section order
-- `src/components/section/`  -  portfolio sections
-- `src/components/ui/`  -  reusable interface primitives and local SVG assets
-- `src/components/magicui/`  -  retained Magic UI components and motion utilities
-- `src/app/blog/`  -  retained blog infrastructure, hidden until personal posts are configured
+Projects are stored as structured data so the portfolio can render them consistently.
 
-## Updating Content
-
-Portfolio content is primarily maintained in [`src/data/resume.tsx`](./src/data/resume.tsx). Optional links, images, GitHub activity, writing posts, certification metadata, and `contact.scheduleUrl` should only be added when verified values are available. The homepage search indexes this structured content, so new projects and roles become searchable automatically.
-
-The contact area uses a verified `mailto:` fallback for email. Automatic message delivery is intentionally not configured; a future form would require a provider such as Resend or Formspree and its server-side credentials.
-
-## Adding Projects
-
-Projects use a typed structure with a canonical identity and outcome-driven fields:
+A typical project entry looks like:
 
 ```ts
 {
@@ -82,8 +131,28 @@ Projects use a typed structure with a canonical identity and outcome-driven fiel
 }
 ```
 
-Leave optional link fields empty until real destinations exist; empty links are not rendered.
+Only verified links and outcomes should be added. Empty optional links are intentionally not rendered.
 
-## License
+## Design Approach
 
-This project retains the existing MIT license and the attribution required by the original Magic UI portfolio template. See [`LICENSE`](./LICENSE).
+The portfolio is based on the original Magic UI portfolio template, but has been substantially adapted around my own experience, projects, technical profile, research, navigation, and content structure.
+
+The design follows a few simple principles:
+
+- keep the first view easy to scan
+- expose deeper technical detail only when useful
+- prioritize real outcomes over decorative content
+- keep project and skill information structured and consistent
+- preserve accessibility and responsive behavior while adding interaction
+
+## Contact
+
+- [GitHub](https://github.com/HarishNamasivayamM)
+- [LinkedIn](https://www.linkedin.com/in/harish-namasivayam-muthuswamy/)
+- [Schedule a conversation](https://calendly.com/harishnamasivayam/quick-chat)
+
+## Credits & License
+
+This project retains the existing MIT license and the attribution required by the original Magic UI portfolio template.
+
+See [`LICENSE`](./LICENSE) for details.
