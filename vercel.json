@@ -1,0 +1,16 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/cryptotweets",
+      "destination": "/cryptotweets/",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/cryptotweets/:path*",
+      "destination": "https://crypto-tweet-impact-analysis.harishnamasivayam-m.chatgpt.site/:path*"
+    }
+  ]
+}
