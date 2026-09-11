@@ -10,6 +10,10 @@
   ],
   "rewrites": [
     {
+      "source": "/cryptotweets/",
+      "destination": "https://crypto-tweet-impact-analysis.harishnamasivayam-m.chatgpt.site/"
+    },
+    {
       "source": "/cryptotweets/:path*",
       "destination": "https://crypto-tweet-impact-analysis.harishnamasivayam-m.chatgpt.site/:path*"
     }
