@@ -44,15 +44,15 @@ function ResearchCard({ project }: { project: Project }) {
       <div className="mt-4 flex flex-wrap gap-1.5">
         {project.approach.slice(0, 5).map((item) => <Badge key={item} variant="outline" className="min-h-6 px-2 py-0.5 text-xs">{item}</Badge>)}
       </div>
-      <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-research/15 pt-3">
-        <DetailsButton expanded={expanded} onClick={() => setExpanded((value) => !value)} controls={detailsId} />
-        {project.paperUrl && <Link href={project.paperUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-8 items-center gap-1.5 rounded-md px-2 text-sm font-medium text-research transition-colors hover:bg-research/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"><ArrowUpRight className="size-4" aria-hidden="true" />View Paper</Link>}
-      </div>
       <div id={detailsId} hidden={!expanded} className="mt-3 space-y-2 border-t border-research/15 pt-3 text-sm leading-relaxed text-muted-foreground">
         <p><span className="font-semibold text-foreground">Problem:</span> {project.problem}</p>
         {project.build && <p><span className="font-semibold text-foreground">What I built:</span> {project.build}</p>}
         {project.scale && <p><span className="font-semibold text-foreground">Scale:</span> {project.scale}</p>}
         {project.metrics && <ul className="list-disc space-y-1 pl-4">{project.metrics.map((metric) => <li key={metric}>{metric}</li>)}</ul>}
+      </div>
+      <div className="mt-auto flex flex-wrap items-center gap-2 border-t border-research/15 pt-3">
+        <DetailsButton expanded={expanded} onClick={() => setExpanded((value) => !value)} controls={detailsId} />
+        {project.paperUrl && <Link href={project.paperUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-8 items-center gap-1.5 rounded-md px-2 text-sm font-medium text-research transition-colors hover:bg-research/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"><ArrowUpRight className="size-4" aria-hidden="true" />View Paper</Link>}
       </div>
     </article>
   );
@@ -71,17 +71,29 @@ function WinnerCard({ entry }: { entry: PublicationAchievement }) {
       <h3 className="mt-3 text-base font-semibold leading-snug">{entry.title}</h3>
       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{entry.organization}</p>
       <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{entry.description}</p>
-      <div className="mt-auto flex items-center border-t border-award/15 pt-3">
-        <DetailsButton expanded={expanded} onClick={() => setExpanded((value) => !value)} controls={detailsId} />
-      </div>
+      {entry.highlight && (
+        <div className="mt-4 border-y border-award/15 py-3">
+          <p className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-muted-foreground">Project highlight</p>
+          <p className="mt-2 text-sm font-semibold leading-relaxed text-award">{entry.highlight}</p>
+        </div>
+      )}
+      {entry.technologies && entry.technologies.length > 0 && (
+        <div className="mt-4 flex flex-wrap gap-1.5">
+          {entry.technologies.map((item) => <Badge key={item} variant="outline" className="min-h-6 px-2 py-0.5 text-xs">{item}</Badge>)}
+        </div>
+      )}
       <div id={detailsId} hidden={!expanded} className="mt-3 border-t border-award/15 pt-3 text-sm leading-relaxed text-muted-foreground">
         {entry.project && <p><span className="font-semibold text-foreground">Project:</span> {entry.project}</p>}
+      </div>
+      <div className="mt-auto flex items-center border-t border-award/15 pt-3">
+        <DetailsButton expanded={expanded} onClick={() => setExpanded((value) => !value)} controls={detailsId} />
       </div>
     </article>
   );
 }
 
 function HackathonRecognition({ entry }: { entry: PublicationAchievement }) {
+  const [expanded, setExpanded] = useState(false);
   const finalist = entry.badge?.includes("Finalist") ?? false;
   const badgeClass = finalist
     ? "border-award/25 bg-award/10 text-award hover:bg-award/15"
@@ -89,12 +101,15 @@ function HackathonRecognition({ entry }: { entry: PublicationAchievement }) {
 
   return (
     <AccordionItem value={`${entry.type}-${entry.title}`} className={`rounded-xl border px-4 ${finalist ? "border-award/30 bg-award/[0.035] dark:bg-award/[0.06]" : "border-border bg-card"}`}>
-      <AccordionTrigger className="gap-3 py-4 hover:no-underline [&>svg]:size-4">
-        <div className="flex min-w-0 flex-1 flex-wrap items-center gap-x-3 gap-y-1 text-left">
-          <Badge className={badgeClass}>{entry.badge || entry.type}</Badge>
-          <span className={finalist ? "font-semibold" : "font-medium"}>{entry.title}</span>
-          {entry.date && <span className="text-xs tabular-nums text-muted-foreground">{entry.date}</span>}
+      <AccordionTrigger onClick={() => setExpanded((value) => !value)} className="gap-3 py-4 hover:no-underline [&>svg]:size-4">
+        <div className="flex min-w-0 flex-1 items-center gap-3 text-left">
+          <div className="flex min-w-0 flex-1 flex-wrap items-center gap-x-3 gap-y-1">
+            <Badge className={badgeClass}>{entry.badge || entry.type}</Badge>
+            <span className={finalist ? "font-semibold" : "font-medium"}>{entry.title}</span>
+          </div>
+          {entry.date && <span className="shrink-0 text-xs tabular-nums text-muted-foreground">{entry.date}</span>}
         </div>
+        <ChevronDown className={`size-4 shrink-0 text-muted-foreground transition-transform duration-200 ${expanded ? "rotate-180" : ""}`} aria-hidden="true" />
       </AccordionTrigger>
       <AccordionContent>
         <div className="space-y-2 border-t border-border/70 pt-3 text-sm leading-relaxed text-muted-foreground">

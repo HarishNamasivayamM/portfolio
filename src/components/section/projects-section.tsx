@@ -91,7 +91,7 @@ export default function ProjectsSection() {
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {moreProjects.map((project, index) => (
             <BlurFade key={project.canonicalId} delay={0.08 + index * 0.025} className="h-full">
-              <CompactProjectCard title={project.title} categories={project.categories} problem={project.problem} build={project.build} scale={project.scale} outcome={project.outcome} approach={project.approach} githubUrl={project.githubUrl} demoUrl={project.demoUrl} caseStudyUrl={project.caseStudyUrl} architectureUrl={project.architectureUrl} paperUrl={project.paperUrl} />
+              <CompactProjectCard title={project.title} categories={project.categories} problem={project.problem} build={project.build} scale={project.scale} outcome={project.outcome} approach={project.approach} badge={project.badge} githubUrl={project.githubUrl} demoUrl={project.demoUrl} caseStudyUrl={project.caseStudyUrl} architectureUrl={project.architectureUrl} paperUrl={project.paperUrl} />
             </BlurFade>
           ))}
         </div>

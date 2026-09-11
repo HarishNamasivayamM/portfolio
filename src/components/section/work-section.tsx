@@ -11,9 +11,14 @@ import {
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { DATA, type WorkExperience } from "@/data/resume";
 import { ChevronDown } from "lucide-react";
+import type { ComponentType } from "react";
 
-function LogoImage({ src, alt }: { src?: string; alt: string }) {
+function LogoImage({ src, logo: Logo, alt }: { src?: string; logo?: ComponentType<{ className?: string }>; alt: string }) {
   const [imageError, setImageError] = useState(false);
+
+  if (Logo) {
+    return <div className="flex size-8 flex-none items-center justify-center rounded-full border bg-muted p-1 text-primary shadow ring-2 ring-border md:size-10"><Logo className="size-5 md:size-6" /></div>;
+  }
 
   if (!src || imageError) {
     const initials = alt
@@ -52,7 +57,7 @@ export default function WorkSection({
             <AccordionTrigger aria-label={`${isOpen ? "Hide" : "View"} details for ${work.company}`} onFocus={() => setTooltipValue(value)} onBlur={() => setTooltipValue(null)} className="group cursor-pointer rounded-none p-0 transition-colors hover:no-underline [&>svg]:hidden">
               <div className="flex w-full items-center justify-between gap-x-3 text-left">
                 <div className="flex min-w-0 flex-1 items-center gap-x-3">
-                  <LogoImage src={work.logoUrl} alt={work.company} />
+                  <LogoImage src={work.logoUrl} logo={work.logo} alt={work.company} />
                   <div className="flex min-w-0 flex-1 flex-col gap-0.5">
                     <div className="flex items-center gap-2 font-semibold leading-none">
                       <span className="truncate">{work.company}</span>

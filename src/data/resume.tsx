@@ -1,4 +1,5 @@
-import { Icons } from "@/components/icons";
+import { GitHubIcon, Icons } from "@/components/icons";
+import { AzureDataFactoryIcon } from "@/components/technology-icons";
 import { BarChart3, BrainCircuit, Cloud, CloudCog, Code2, Database, FileTextIcon, GitBranch, HomeIcon, Layers3, Workflow, type LucideIcon } from "lucide-react";
 import type { ComponentType, ReactNode } from "react";
 import { Docker } from "@/components/ui/svgs/docker";
@@ -16,7 +17,6 @@ import {
   SiDuckdb,
   SiElasticsearch,
   SiGit,
-  SiGithub,
   SiGooglecloud,
   SiGrafana,
   SiLangchain,
@@ -29,14 +29,15 @@ import {
   SiSnowflake,
   SiSqlite,
   SiStreamlit,
+  SiWipro,
 } from "react-icons/si";
 
 export interface Skill { name: string; icon: ComponentType<{ className?: string }>; }
 export interface SkillGroup { category: string; technologies: readonly Skill[]; concepts: readonly string[]; icon?: LucideIcon; }
-export interface WorkExperience { company: string; title: string; logoUrl?: string; location?: string; start: string; end?: string; summary?: string; highlights?: readonly string[]; additionalHighlights?: readonly string[]; }
+export interface WorkExperience { company: string; title: string; logoUrl?: string; logo?: ComponentType<{ className?: string }>; location?: string; start: string; end?: string; summary?: string; highlights?: readonly string[]; additionalHighlights?: readonly string[]; }
 export interface Education { school: string; initials: string; degree: string; field?: string; affiliatedCollege?: string; href?: string; logoUrl?: string; start?: string; end?: string; gpa?: string; location?: string; }
 export interface Project { canonicalId: string; title: string; categories: readonly string[]; problem: string; build?: string; approach: readonly string[]; scale?: string; outcome: string; metrics?: readonly string[]; venue?: string; badge?: string; date?: string; status?: string; featured?: boolean; research?: boolean; featuredMetric?: string; featuredMetricLabel?: string; githubUrl?: string; demoUrl?: string; architectureUrl?: string; caseStudyUrl?: string; paperUrl?: string; coverImage?: string; demoVideo?: string; image?: string; video?: string; }
-export interface PublicationAchievement { type: "Publication" | "Achievement / Award" | "Participation"; title: string; organization: string; date?: string; description: string; href?: string; badge?: string; project?: string; }
+export interface PublicationAchievement { type: "Publication" | "Achievement / Award" | "Participation"; title: string; organization: string; date?: string; description: string; href?: string; badge?: string; project?: string; highlight?: string; technologies?: readonly string[]; }
 export interface Certification { name: string; issuer: string; initials: string; subtitle?: string; date?: string; year?: string; credentialId?: string; href?: string; logoUrl?: string; }
 export interface GitHubActivity { profileUrl: string; imageUrl: string; alt: string; }
 export interface LeadershipRole { title: string; start: string; end: string; }
@@ -51,14 +52,13 @@ const CORE_STACK: Skill[] = [
   { name: "Apache Spark", icon: SiApachespark },
   { name: "Apache Kafka", icon: SiApachekafka },
   { name: "Apache Airflow", icon: SiApacheairflow },
-  { name: "dbt", icon: Workflow },
-  { name: "Microsoft Fabric", icon: Layers3 },
-  { name: "Snowflake", icon: SiSnowflake },
   { name: "Azure", icon: CloudCog },
-  { name: "Power BI", icon: BarChart3 },
+  { name: "Microsoft Fabric", icon: Layers3 },
   { name: "Databricks", icon: SiDatabricks },
+  { name: "Snowflake", icon: SiSnowflake },
+  { name: "Power BI", icon: BarChart3 },
   { name: "scikit-learn", icon: SiScikitlearn },
-  { name: "Docker", icon: Docker },
+  { name: "LangChain", icon: SiLangchain },
 ];
 
 export const DATA = {
@@ -79,25 +79,25 @@ export const DATA = {
   skillGroups: [
     { category: "Programming & Query", icon: Code2, technologies: [{ name: "Python", icon: Python }, { name: "SQL", icon: Database }, { name: "R", icon: FaRProject }, { name: "PySpark", icon: SiApachespark }, { name: "Pandas", icon: SiPandas }, { name: "NumPy", icon: SiNumpy }], concepts: ["CTEs", "Window Functions", "Stored Procedures", "Query Optimization", "Complex Joins", "Data Manipulation"] },
     { category: "Data Engineering", icon: Workflow, technologies: [{ name: "Apache Spark", icon: SiApachespark }, { name: "PySpark", icon: SiApachespark }, { name: "Apache Kafka", icon: SiApachekafka }, { name: "Apache Airflow", icon: SiApacheairflow }, { name: "dbt", icon: Workflow }, { name: "Delta Lake", icon: SiDelta }, { name: "Hadoop", icon: SiApachehadoop }, { name: "HDFS", icon: SiApachehadoop }], concepts: ["ETL", "ELT", "Data Pipelines", "Data Modeling", "Dimensional Modeling", "Star Schema", "Fact & Dimension Design", "Data Warehousing", "Medallion Architecture", "Data Validation", "Data Profiling", "Data Reconciliation", "Data Quality", "Pipeline Testing", "REST API Integration", "Event-Driven Workflows"] },
-    { category: "Microsoft Fabric & Azure", icon: Cloud, technologies: [{ name: "Microsoft Fabric", icon: Layers3 }, { name: "OneLake", icon: Layers3 }, { name: "Fabric Lakehouse", icon: Layers3 }, { name: "Fabric Warehouse", icon: Database }, { name: "Fabric Data Pipelines", icon: Workflow }, { name: "Fabric Data Factory", icon: Workflow }, { name: "Dataflows Gen2", icon: Workflow }, { name: "Fabric Spark", icon: SiApachespark }, { name: "Fabric SQL", icon: Database }, { name: "Real-Time Intelligence", icon: CloudCog }, { name: "Power BI", icon: BarChart3 }, { name: "Azure Data Factory", icon: Workflow }, { name: "Azure Blob Storage", icon: CloudCog }, { name: "Azure Databricks", icon: SiDatabricks }], concepts: ["KQL", "DAX", "Power Query"] },
+    { category: "Microsoft Fabric & Azure", icon: Cloud, technologies: [{ name: "Microsoft Fabric", icon: Layers3 }, { name: "OneLake", icon: Layers3 }, { name: "Fabric Lakehouse", icon: Layers3 }, { name: "Fabric Warehouse", icon: Database }, { name: "Fabric Data Pipelines", icon: Workflow }, { name: "Fabric Data Factory", icon: Workflow }, { name: "Dataflows Gen2", icon: Workflow }, { name: "Fabric Spark", icon: SiApachespark }, { name: "Fabric SQL", icon: Database }, { name: "Real-Time Intelligence", icon: CloudCog }, { name: "Power BI", icon: BarChart3 }, { name: "Azure Data Factory", icon: AzureDataFactoryIcon }, { name: "Azure Blob Storage", icon: CloudCog }, { name: "Azure Databricks", icon: SiDatabricks }], concepts: ["KQL", "DAX", "Power Query"] },
     { category: "Cloud & Data Platforms", icon: Cloud, technologies: [{ name: "AWS", icon: FaAws }, ...withIcon(["Amazon S3", "Amazon EC2", "Amazon Redshift", "AWS IAM"], FaAws), { name: "Google Cloud Platform", icon: SiGooglecloud }, { name: "Snowflake", icon: SiSnowflake }, { name: "Databricks", icon: SiDatabricks }, { name: "Oracle Cloud / OCI", icon: Cloud }], concepts: [] },
     { category: "Databases & Warehouses", icon: Database, technologies: [{ name: "PostgreSQL", icon: Postgresql }, { name: "MySQL", icon: SiMysql }, { name: "Microsoft SQL Server", icon: Database }, { name: "Oracle", icon: Database }, { name: "Snowflake", icon: SiSnowflake }, { name: "SQLite", icon: SiSqlite }, { name: "Elasticsearch", icon: SiElasticsearch }, { name: "DuckDB", icon: SiDuckdb }], concepts: [] },
     { category: "Analytics & BI", icon: BarChart3, technologies: [{ name: "Power BI", icon: BarChart3 }, { name: "Tableau", icon: BarChart3 }, { name: "Grafana", icon: SiGrafana }, { name: "Excel", icon: BarChart3 }, { name: "Streamlit", icon: SiStreamlit }, { name: "Plotly", icon: SiPlotly }, ...withIcon(["Matplotlib", "Seaborn"], BarChart3)], concepts: ["KPI Development", "Ad Hoc Reporting", "Data Storytelling", "Trend Analysis", "Root Cause Analysis", "RFM Segmentation", "Drill-Down Analysis"] },
     { category: "Data Science & Machine Learning", icon: BrainCircuit, technologies: [{ name: "scikit-learn", icon: SiScikitlearn }, { name: "XGBoost", icon: BrainCircuit }], concepts: ["Regression", "Linear Regression", "Random Forest", "Gradient Boosting", "Feature Engineering", "Predictive Modeling", "Model Evaluation", "Time-Series Forecasting", "Holt-Winters", "Statistical Analysis", "Hypothesis Testing", "A/B Testing", "Forecast Accuracy", "WAPE", "Risk Scoring", "Segmentation"] },
     { category: "AI / LLM / RAG", icon: BrainCircuit, technologies: [{ name: "LangChain", icon: SiLangchain }, { name: "FAISS", icon: Database }, { name: "Elasticsearch", icon: SiElasticsearch }], concepts: ["RAG", "Vector Search", "Embeddings", "Elasticsearch Retrieval", "MCP / Model Context Protocol", "AI Agents / Agentic Workflows", "LLM Applications", "Document Chunking", "Metadata-Aware Retrieval", "Prompt Engineering", "LLM Evaluation", "Transformers", "LoRA", "Federated Learning"] },
-    { category: "DevOps / Delivery / Collaboration", icon: GitBranch, technologies: [{ name: "Git", icon: SiGit }, { name: "GitHub", icon: SiGithub }, { name: "Docker", icon: Docker }, { name: "Kubernetes", icon: Kubernetes }, { name: "Linux", icon: SiLinux }], concepts: ["MLOps", "CI/CD", "Automated Testing", "Pipeline Testing", "Model Evaluation", "Deployment Workflows", "Code Reviews", "Technical Documentation", "REST API Integration", "Jira", "Confluence", "Agile", "Scrum"] },
+    { category: "DevOps / Delivery / Collaboration", icon: GitBranch, technologies: [{ name: "Git", icon: SiGit }, { name: "GitHub", icon: GitHubIcon }, { name: "Docker", icon: Docker }, { name: "Kubernetes", icon: Kubernetes }, { name: "Linux", icon: SiLinux }], concepts: ["MLOps", "CI/CD", "Automated Testing", "Pipeline Testing", "Model Evaluation", "Deployment Workflows", "Code Reviews", "Technical Documentation", "REST API Integration", "Jira", "Confluence", "Agile", "Scrum"] },
   ] as SkillGroup[],
   navbar: [{ href: "/", icon: HomeIcon, label: "Home" }],
-  contact: { email: "harishnamasivayam@gmail.com", scheduleUrl: "", social: {
-    GitHub: { name: "GitHub", url: "https://github.com/HarishNamasivayamM", icon: Icons.github, navbar: false },
+  contact: { email: "harishnamasivayam@gmail.com", scheduleUrl: "https://calendly.com/harishnamasivayam/quick-chat", social: {
+    GitHub: { name: "GitHub", url: "https://github.com/HarishNamasivayamM", icon: GitHubIcon, navbar: false },
     LinkedIn: { name: "LinkedIn", url: "https://www.linkedin.com/in/harish-namasivayam-muthuswamy/", icon: Icons.linkedin, navbar: true },
     email: { name: "Email", url: "mailto:harishnamasivayam@gmail.com", icon: Icons.email, navbar: true },
     Resume: { name: "Resume", url: "", icon: FileTextIcon, navbar: false },
   } },
   work: [
     { company: "U-Sense.IT srl", title: "Data Analytics & Algorithms Intern", location: "Remote", start: "Mar 2026", end: "May 2026", summary: "Built data-quality analysis, vehicle risk scoring, predictive models, and real-time manufacturing quality monitoring across two production stages.", highlights: ["Analyzed 2,000+ automotive sensor records across two manufacturing stages, identifying 15+ data-quality issues and establishing a cleaner foundation for downstream risk modeling.", "Engineered 10+ tolerance-margin features and a vehicle-level risk score to surface high-risk units before Final Assembly.", "Built and benchmarked Linear Regression, Random Forest, and Gradient Boosting models in scikit-learn, reaching up to approximately 85% prediction accuracy.", "Built a real-time Grafana dashboard tracking quality KPIs, pass/fail rates, and anomaly alerts for manufacturing monitoring."] },
-    { company: "Wipro Technologies Ltd.", title: "Project Engineer", location: "Chennai, India", start: "Dec 2022", end: "Jul 2024", summary: "Built SQL-based ETL and BI solutions for a KYC compliance platform serving a US-based banking client.", highlights: ["Engineered and maintained SQL-based ETL workflows for a KYC compliance platform processing 1M+ onboarding records across source, staging, and reporting layers.", "Optimized SQL queries, stored procedures, views, and indexing strategies, improving ETL processing performance by approximately 40%.", "Developed Power BI reporting for onboarding and operational KPIs, contributing to approximately 15% higher account activation and approximately 30% lower manual reporting effort.", "Performed data-quality validation, reconciliation, profiling, and root cause analysis with QA, business, and compliance teams."] },
-    { company: "Wipro Technologies Ltd.", title: "Analytics Intern", location: "Chennai, India", start: "Mar 2022", end: "May 2022", summary: "Automated recurring reporting and improved customer-data reconciliation through SQL analysis and validation.", highlights: ["Automated recurring reporting with 30+ SQL queries across three databases, reducing manual reporting effort by approximately 25%.", "Profiled and validated 50K+ customer records, resolving inconsistencies and supporting approximately 98% reconciliation accuracy."] },
+    { company: "Wipro Technologies Ltd.", title: "Project Engineer", logo: SiWipro, location: "Chennai, India", start: "Dec 2022", end: "Jul 2024", summary: "Built SQL-based ETL and BI solutions for a KYC compliance platform serving a US-based banking client.", highlights: ["Engineered and maintained SQL-based ETL workflows for a KYC compliance platform processing 1M+ onboarding records across source, staging, and reporting layers.", "Optimized SQL queries, stored procedures, views, and indexing strategies, improving ETL processing performance by approximately 40%.", "Developed Power BI reporting for onboarding and operational KPIs, contributing to approximately 15% higher account activation and approximately 30% lower manual reporting effort.", "Performed data-quality validation, reconciliation, profiling, and root cause analysis with QA, business, and compliance teams."] },
+    { company: "Wipro Technologies Ltd.", title: "Analytics Intern", logo: SiWipro, location: "Chennai, India", start: "Mar 2022", end: "May 2022", summary: "Automated recurring reporting and improved customer-data reconciliation through SQL analysis and validation.", highlights: ["Automated recurring reporting with 30+ SQL queries across three databases, reducing manual reporting effort by approximately 25%.", "Profiled and validated 50K+ customer records, resolving inconsistencies and supporting approximately 98% reconciliation accuracy."] },
   ] as WorkExperience[],
   projects: [
     { canonicalId: "retailiq", title: "RetailIQ  -  Retail Data Platform & Revenue Analytics", categories: ["Data Engineering", "Analytics", "BI"], problem: "Retail transaction data needed to be transformed into structured, decision-ready analytics.", build: "Designed a modern retail analytics pipeline and dimensional model for revenue, product, and customer analysis.", scale: "100K+ retail transactions", approach: ["Python", "SQL", "Airflow", "dbt", "Snowflake", "Power BI", "Star Schema", "RFM Segmentation"], outcome: "Created analytics-ready models and interactive BI reporting across 8+ business KPIs.", featured: true, featuredMetric: "100K+", featuredMetricLabel: "Retail transactions" },
@@ -116,7 +116,7 @@ export const DATA = {
     { canonicalId: "federated-iot-intrusion-detection", title: "Hybrid Transformer and XGBoost Model for Federated IoT Intrusion Detection", categories: ["Research", "Machine Learning", "Cybersecurity"], problem: "IoT intrusion detection needs strong predictive performance while federated learning introduces privacy and communication constraints.", build: "Developed a hybrid Transformer and XGBoost intrusion-detection architecture for distributed IoT learning.", approach: ["Transformer", "XGBoost", "Federated Learning", "LoRA", "IoT", "Cybersecurity", "Machine Learning"], outcome: "Achieved approximately 98% detection performance with approximately 90% lower communication overhead.", venue: "2026 IEEE 5th International Conference on AI in Cybersecurity (ICAIC)", paperUrl: "https://doi.org/10.1109/ICAIC67076.2026.11395795", research: true, featuredMetric: "~98% detection", featuredMetricLabel: "~90% lower communication overhead" },
   ] as Project[],
   publicationsAchievements: [
-    { type: "Achievement / Award", title: "Melissa Data Challenge Winner", organization: "LA Hacks 2025   ·   UCLA", date: "2025", project: "Bandaid Maps", badge: "Winner", description: "Won the Melissa Data Challenge for Bandaid Maps, an AI-assisted healthcare navigation application built during a 36-hour hackathon." },
+    { type: "Achievement / Award", title: "Melissa Data Challenge Winner", organization: "LA Hacks 2025   ·   UCLA", date: "2025", project: "Bandaid Maps", badge: "Winner", description: "Won the Melissa Data Challenge for Bandaid Maps, an AI-assisted healthcare navigation application built during a 36-hour hackathon. It helps users understand health readiness and locate appropriate nearby healthcare resources.", highlight: "Combined a Health Readiness Score, Emergency Action Plan, and Interactive Map to guide users toward nearby healthcare resources.", technologies: ["FastAPI", "React", "Google Gemini API", "Melissa APIs", "MongoDB"] },
     { type: "Participation", title: "AnDackaThon 2026", organization: "Analytics & Data Summit 2026   ·   Oracle Redwood Shores / San Jose State University", date: "2026", badge: "Participant   ·   Datathon", description: "Participated in the Datathon track, working with real-world datasets and Oracle analytics and data technologies under a compressed hackathon timeline." },
     { type: "Participation", title: "HERE Technologies Chicago Hackathon Finalist", organization: "HERE Technologies Chicago Hackathon", date: "2025", badge: "Finalist", description: "Reached the finalist stage with a road sign validation and geospatial intelligence project." },
   ] as PublicationAchievement[],
@@ -125,7 +125,7 @@ export const DATA = {
     { school: "Anna University", initials: "AU", affiliatedCollege: "St. Joseph's College of Engineering", location: "Chennai, India", degree: "Bachelor of Engineering", field: "Electronics and Communication Engineering", gpa: "3.65", start: "Aug 2018", end: "May 2022" },
   ] as Education[],
   certifications: [
-    { name: "Microsoft Certified: Fabric Data Engineer Associate", issuer: "Microsoft", initials: "MS", subtitle: "Exam DP-700" },
+    { name: "Microsoft Certified: Fabric Data Engineer Associate", issuer: "Microsoft", initials: "MS", subtitle: "DP-700", href: "https://learn.microsoft.com/api/credentials/share/en-us/HarishNamasivayamMuthuswamy-8878/1875FA6C12BD2DBA?sharingId=48FEA08B143E048B" },
     { name: "Google Cloud Associate Cloud Engineer", issuer: "Google Cloud", initials: "GCP", date: "May 2023", credentialId: "73403999" },
   ] as Certification[],
   leadership: [

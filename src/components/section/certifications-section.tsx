@@ -22,34 +22,18 @@ export default function CertificationsSection({
           <h2 className="text-xl font-bold tracking-tight">Certifications</h2>
         </BlurFade>
         <div className="flex w-full flex-col gap-2">
-          {certifications.map((certification) => (
-            <BlurFade
-              key={`${certification.issuer}-${certification.name}-${certification.year || certification.date || ""}`}
-              delay={delay + 0.04}
-            >
-              <div className="flex flex-col gap-2 rounded-xl border border-primary/15 px-5 py-4 transition-colors hover:border-primary/25 hover:bg-primary/[0.025] sm:flex-row sm:items-center sm:justify-between sm:gap-3">
+          {certifications.map((certification) => {
+            const cardClassName = "flex flex-col gap-2 rounded-xl border border-primary/15 px-5 py-4 transition-colors hover:border-primary/25 hover:bg-primary/[0.025] sm:flex-row sm:items-center sm:justify-between sm:gap-3";
+            const content = (
+              <>
                 <div className="flex min-w-0 items-center gap-3">
                   <div className={certification.issuer === "Google Cloud" ? "flex size-11 shrink-0 items-center justify-center rounded-full border border-analytics/20 bg-analytics/5 text-analytics dark:bg-analytics/10" : "flex size-11 shrink-0 items-center justify-center rounded-full border border-primary/20 bg-primary/5 text-primary dark:bg-primary/10"} aria-hidden="true">
                     {certification.issuer === "Google Cloud" ? <SiGooglecloud className="size-5" /> : <Layers3 className="size-5" />}
                   </div>
                   <div className="flex min-w-0 flex-col gap-0.5">
-                    <h3 className="text-base font-semibold leading-tight">
-                      {certification.href ? (
-                        <Link
-                          href={certification.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="group inline-flex items-center gap-2 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                        >
-                          {certification.name}
-                          <ArrowUpRight
-                            className="h-3.5 w-3.5 shrink-0 text-muted-foreground opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 group-focus-visible:opacity-100 group-focus-visible:translate-x-0 transition-all duration-200"
-                            aria-hidden
-                          />
-                        </Link>
-                      ) : (
-                        certification.name
-                      )}
+                    <h3 className="flex items-center gap-2 text-base font-semibold leading-tight">
+                      {certification.name}
+                      {certification.href && <ArrowUpRight className="size-3.5 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" aria-hidden="true" />}
                     </h3>
                     <p className="font-sans text-sm text-muted-foreground">
                       {certification.issuer}{certification.subtitle && `   ·   ${certification.subtitle}`}
@@ -62,9 +46,22 @@ export default function CertificationsSection({
                     {certification.year || certification.date}
                   </span>
                 )}
-              </div>
-            </BlurFade>
-          ))}
+              </>
+            );
+
+            return (
+              <BlurFade
+                key={`${certification.issuer}-${certification.name}-${certification.year || certification.date || ""}`}
+                delay={delay + 0.04}
+              >
+                {certification.href ? (
+                  <Link href={certification.href} target="_blank" rel="noopener noreferrer" aria-label={`Verify ${certification.name}`} className={`${cardClassName} group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2`}>
+                    {content}
+                  </Link>
+                ) : <div className={cardClassName}>{content}</div>}
+              </BlurFade>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -1,36 +1,44 @@
+import { GitHubIcon } from "@/components/icons";
 import { FlickeringGrid } from "@/components/magicui/flickering-grid";
+import QuickMessage from "@/components/section/quick-message";
 import { DATA } from "@/data/resume";
-import { CalendarDays, Github, Linkedin, Mail, type LucideIcon } from "lucide-react";
-import Link from "next/link";
-
-type ContactCard = { title: string; description: string; label: string; href?: string; icon: LucideIcon; disabled?: boolean };
+import { ArrowUpRight, CalendarDays, Linkedin, Mail } from "lucide-react";
 
 export default function ContactSection() {
-  const conversationHref = DATA.contact.scheduleUrl || `mailto:${DATA.contact.email}?subject=${encodeURIComponent("Portfolio Conversation")}&body=${encodeURIComponent("Hi Harish,\n\nI came across your portfolio and would like to connect regarding...")}`;
-  const cards: ContactCard[] = [
-    { title: "Schedule a conversation", description: "For opportunities, project discussions, or a quick introduction.", label: "Schedule a 20 - 30 min conversation", href: DATA.contact.scheduleUrl || undefined, icon: CalendarDays, disabled: !DATA.contact.scheduleUrl },
-    { title: "Email me", description: DATA.contact.email, label: "Send Email", href: DATA.contact.social.email.url, icon: Mail },
-    { title: "Connect on LinkedIn", description: "Professional profile and experience", label: "Connect on LinkedIn", href: DATA.contact.social.LinkedIn.url || undefined, icon: Linkedin, disabled: !DATA.contact.social.LinkedIn.url },
-    { title: "View GitHub", description: "Code, projects, and experiments", label: DATA.contact.social.GitHub.url ? "View GitHub" : "GitHub URL needed", href: DATA.contact.social.GitHub.url || undefined, icon: Github, disabled: !DATA.contact.social.GitHub.url },
-  ];
-
   return (
-    <div className="relative overflow-hidden rounded-xl border p-6 pt-14 sm:p-8 sm:pt-14">
-      <div className="absolute left-1/2 top-3 z-10 -translate-x-1/2 rounded-xl border bg-primary px-4 py-1"><span className="text-sm font-medium text-background">Let&apos;s Connect</span></div>
+    <div className="relative overflow-hidden rounded-xl border p-5 pt-12 sm:p-6 sm:pt-12">
+      <div className="absolute left-1/2 top-3 z-10 -translate-x-1/2 rounded-xl border bg-primary px-3.5 py-0.5"><span className="text-sm font-medium text-background">Let&apos;s Connect</span></div>
       <div className="absolute inset-x-0 top-0 h-1/2 overflow-hidden rounded-xl"><FlickeringGrid className="h-full w-full" squareSize={2} gridGap={2} style={{ maskImage: "linear-gradient(to bottom, black, transparent)", WebkitMaskImage: "linear-gradient(to bottom, black, transparent)" }} /></div>
-      <div className="relative flex flex-col gap-5">
+      <div className="relative mx-auto flex w-full max-w-2xl flex-col gap-4">
         <div className="text-center">
-          <h2 className="text-2xl font-bold tracking-tighter sm:text-4xl">Let&apos;s Connect</h2>
-          <p className="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground text-balance sm:text-base">Open to conversations around data engineering, analytics, ML/AI, projects, and opportunities.</p>
-          <Link href={conversationHref} target={DATA.contact.scheduleUrl ? "_blank" : undefined} rel={DATA.contact.scheduleUrl ? "noopener noreferrer" : undefined} className="mt-4 inline-flex min-h-10 items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Start a Conversation</Link>
+          <h2 className="text-2xl font-bold tracking-tighter sm:text-3xl">Let&apos;s Connect</h2>
+          <p className="mx-auto mt-1.5 max-w-xl text-sm leading-relaxed text-muted-foreground text-balance sm:text-base">Open to conversations around data engineering, analytics, ML/AI, projects, and opportunities.</p>
         </div>
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          {cards.map((card) => {
-            const Icon = card.icon;
-            const content = <><Icon className="size-5 text-primary" aria-hidden="true" /><span className="mt-3 block text-base font-semibold text-foreground">{card.title}</span><span className="mt-1 block text-sm leading-relaxed text-muted-foreground">{card.description}</span><span className={`mt-3 block text-sm font-medium ${card.disabled ? "text-muted-foreground" : "text-primary"}`}>{card.disabled ? "Email me to arrange a time" : card.label}</span></>;
-            return card.href ? <Link key={card.title} href={card.href} target={card.href.startsWith("mailto:") ? undefined : "_blank"} rel={card.href.startsWith("mailto:") ? undefined : "noopener noreferrer"} className="rounded-xl border border-border/80 bg-background/70 p-4 transition-colors hover:border-primary/30 hover:bg-primary/[0.025] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">{content}</Link> : <div key={card.title} aria-disabled="true" className="rounded-xl border border-border/60 bg-muted/20 p-4">{content}</div>;
-          })}
+        <QuickMessage email={DATA.contact.email} />
+        <div className="flex items-center gap-3 py-0.5 text-muted-foreground" aria-hidden="true">
+          <span className="h-px flex-1 bg-border/70" />
+          <span className="text-xs font-medium uppercase tracking-[0.18em]">or</span>
+          <span className="h-px flex-1 bg-border/70" />
         </div>
+        <div className="rounded-xl border border-border/80 bg-background/70 p-4 shadow-sm">
+          <div className="flex items-start gap-3">
+            <span className="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-lg border border-primary/20 bg-primary/10 text-primary"><CalendarDays className="size-4" aria-hidden="true" /></span>
+            <div className="min-w-0">
+              <h3 className="text-lg font-semibold tracking-tight">Schedule a Conversation</h3>
+              <p className="mt-0.5 text-sm leading-relaxed text-muted-foreground">Pick a time that works for you.</p>
+            </div>
+          </div>
+          <a href={DATA.contact.scheduleUrl} target="_blank" rel="noopener noreferrer" aria-label="Schedule a conversation with Harish" className="mt-3 inline-flex min-h-9 items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+            <CalendarDays className="size-4" aria-hidden="true" />
+            Schedule a Conversation
+            <ArrowUpRight className="size-4" aria-hidden="true" />
+          </a>
+        </div>
+        <nav aria-label="Contact links" className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5 border-t border-border/70 pt-3 text-sm">
+          {DATA.contact.social.GitHub.url && <a href={DATA.contact.social.GitHub.url} target="_blank" rel="noopener noreferrer" aria-label="View Harish&apos;s GitHub" className="inline-flex min-h-8 items-center gap-1.5 font-medium text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"><GitHubIcon className="size-4" aria-hidden="true" />GitHub</a>}
+          {DATA.contact.social.LinkedIn.url && <a href={DATA.contact.social.LinkedIn.url} target="_blank" rel="noopener noreferrer" aria-label="Connect with Harish on LinkedIn" className="inline-flex min-h-8 items-center gap-1.5 font-medium text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"><Linkedin className="size-4" aria-hidden="true" />LinkedIn</a>}
+          <a href={DATA.contact.social.email.url} aria-label="Email Harish" className="inline-flex min-h-8 items-center gap-1.5 font-medium text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"><Mail className="size-4" aria-hidden="true" />Email</a>
+        </nav>
       </div>
     </div>
   );
