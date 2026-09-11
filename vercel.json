@@ -1,18 +1,18 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "trailingSlash": true,
   "redirects": [
     {
       "source": "/cryptotweets",
       "destination": "/cryptotweets/",
       "permanent": true
+    },
+    {
+      "source": "/campusguiderag",
+      "destination": "https://campusguide-rag-grounded-institutional-knowledge-assistant-c4v.streamlit.app/",
+      "permanent": false
     }
   ],
   "rewrites": [
-    {
-      "source": "/cryptotweets/",
-      "destination": "https://crypto-tweet-impact-analysis.harishnamasivayam-m.chatgpt.site/"
-    },
     {
       "source": "/cryptotweets/:path*",
       "destination": "https://crypto-tweet-impact-analysis.harishnamasivayam-m.chatgpt.site/:path*"
