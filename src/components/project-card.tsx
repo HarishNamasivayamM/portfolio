@@ -101,7 +101,7 @@ function projectLinks({ websiteUrl, sourceUrl, githubUrl, demoUrl, architectureU
 
 function ProjectLinks({ links, research = false }: { links: LinkItem[]; research?: boolean }) {
   if (links.length === 0) return null;
-  return <div className="flex flex-wrap gap-2 border-t border-border pt-3">{links.map(({ label, href, icon: Icon }) => <Link key={label} href={href} target="_blank" rel="noopener noreferrer" className={cn("inline-flex min-h-9 items-center gap-1.5 rounded-md px-2.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring", research ? "text-research hover:bg-research/10" : "text-primary hover:bg-primary/10")}><Icon className="size-4" aria-hidden="true" />{label}</Link>)}</div>;
+  return <div className="flex flex-wrap items-center justify-end gap-2">{links.map(({ label, href, icon: Icon }) => <Link key={label} href={href} target="_blank" rel="noopener noreferrer" className={cn("inline-flex min-h-9 items-center gap-1.5 whitespace-nowrap rounded-md px-2.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring", research ? "text-research hover:bg-research/10" : "text-primary hover:bg-primary/10")}><Icon className="size-4" aria-hidden="true" />{label}</Link>)}</div>;
 }
 
 export function ProjectCard({ title, categories, problem, build, approach, scale, outcome, metrics, venue, badge, date, status, research, featuredMetric, featuredMetricLabel, websiteUrl, sourceUrl, githubUrl, demoUrl, architectureUrl, caseStudyUrl, paperUrl, coverImage, demoVideo, image, video, className }: Props) {
@@ -123,11 +123,13 @@ export function ProjectCard({ title, categories, problem, build, approach, scale
       {featuredMetric && <div className={cn("rounded-lg border px-3.5 py-2.5", research ? "border-research/20 bg-research/[0.06]" : "border-primary/15 bg-primary/[0.055] dark:bg-primary/[0.08]")}><p className={cn("text-lg font-semibold", research ? "text-research" : "text-primary")}>{featuredMetric}</p>{featuredMetricLabel && <p className="text-sm text-muted-foreground">{featuredMetricLabel}</p>}</div>}
       <p className={cn("text-sm leading-relaxed text-muted-foreground", !expanded && "line-clamp-2")}>{outcome}</p>
       <div id={detailsId} hidden={!expanded} className="space-y-3 pt-1 text-sm leading-relaxed"><dl className="space-y-3"><div><dt className="text-xs font-semibold uppercase tracking-wider text-foreground/70">Problem</dt><dd className="mt-1 text-muted-foreground">{problem}</dd></div>{build && <div><dt className="text-xs font-semibold uppercase tracking-wider text-foreground/70">What I built</dt><dd className="mt-1 text-muted-foreground">{build}</dd></div>}{scale && <div><dt className="text-xs font-semibold uppercase tracking-wider text-foreground/70">Scale</dt><dd className="mt-1 text-muted-foreground">{scale}</dd></div>}<div className={cn("rounded-lg border px-3.5 py-3", research ? "border-research/15 bg-research/[0.05]" : "border-primary/10 bg-primary/[0.04]")}><dt className="text-xs font-semibold uppercase tracking-wider text-foreground/70">Outcome</dt><dd className="mt-1 text-foreground/90">{outcome}</dd>{metrics && <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-muted-foreground">{metrics.map((metric) => <li key={metric}>{metric}</li>)}</ul>}</div></dl></div>
-      <div className="flex items-center justify-between gap-3 border-t border-border/70 pt-3">
+      <div className="mt-auto space-y-3">
         <div className="flex min-w-0 flex-wrap gap-1.5">{approach.slice(0, 6).map((item) => <Badge key={item} variant="outline" className="min-h-6 px-2 py-0.5 text-xs font-medium">{item}</Badge>)}</div>
-        <button type="button" aria-expanded={expanded} aria-controls={detailsId} onClick={() => setExpanded((value) => !value)} className="inline-flex min-h-9 shrink-0 items-center gap-1 rounded-md px-2 text-sm font-medium text-primary transition-colors hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"><span className="sr-only">{expanded ? "Hide" : "Show"} details for {title}</span>{expanded ? "Hide" : "Details"}<ChevronDown className={cn("size-4 transition-transform", expanded && "rotate-180")} aria-hidden="true" /></button>
+        <div className="flex flex-wrap items-center justify-between gap-2 border-t border-border/70 pt-3">
+          <button type="button" aria-expanded={expanded} aria-controls={detailsId} onClick={() => setExpanded((value) => !value)} className="inline-flex min-h-9 shrink-0 items-center gap-1 rounded-md px-2 text-sm font-medium text-primary transition-colors hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"><span className="sr-only">{expanded ? "Hide" : "Show"} details for {title}</span>{expanded ? "Hide" : "Details"}<ChevronDown className={cn("size-4 transition-transform", expanded && "rotate-180")} aria-hidden="true" /></button>
+          {links.length > 0 && <ProjectLinks links={links} research={research} />}
+        </div>
       </div>
-      <ProjectLinks links={links} research={research} />
     </div>
   </article>;
 }
@@ -146,9 +148,9 @@ export function CompactProjectCard({ title, categories, problem, build, scale, o
     <p className={cn("text-sm leading-relaxed text-muted-foreground", !expanded && "line-clamp-2")}>{outcome}</p>
     <div id={detailsId} hidden={!expanded} className="space-y-2 border-t border-border/70 pt-3 text-sm leading-relaxed text-muted-foreground"><p><span className="font-semibold text-foreground">Problem:</span> {problem}</p>{build && <p><span className="font-semibold text-foreground">What I built:</span> {build}</p>}{scale && <p><span className="font-semibold text-foreground">Scale:</span> {scale}</p>}<p><span className="font-semibold text-foreground">Outcome:</span> {outcome}</p><div><span className="font-semibold text-foreground">Technologies:</span><div className="mt-2 flex flex-wrap gap-1.5">{approach.map((item) => <Badge key={item} variant="outline" className="min-h-6 px-2 py-0.5 text-xs font-medium">{item}</Badge>)}</div></div></div>
     <div className="mt-auto flex flex-wrap gap-x-2 gap-y-1 text-xs font-medium text-muted-foreground">{approach.slice(0, 5).map((item) => <span key={item}>{item}</span>)}</div>
-    <div className="flex items-center justify-between gap-2 border-t border-border pt-3">
+    <div className="flex flex-wrap items-center justify-between gap-2 border-t border-border pt-3">
       <button type="button" aria-expanded={expanded} aria-controls={detailsId} onClick={() => setExpanded((value) => !value)} className="inline-flex min-h-8 items-center gap-1 rounded-md px-2 text-sm font-medium text-primary transition-colors hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">{expanded ? "Hide details" : "Details"}<ChevronDown className={cn("size-4 transition-transform", expanded && "rotate-180")} aria-hidden="true" /></button>
-      {links.length > 0 && <div className="flex flex-wrap justify-end gap-2"><ProjectLinks links={links} /></div>}
+      {links.length > 0 && <ProjectLinks links={links} />}
     </div>
   </article>;
 }
