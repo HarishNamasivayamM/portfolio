@@ -16,6 +16,16 @@
       "source": "/campusguiderag/",
       "destination": "https://campusguide-rag-grounded-institutional-knowledge-assistant-c4v.streamlit.app/",
       "permanent": false
+    },
+    {
+      "source": "/partsflow",
+      "destination": "https://partsflow-4enpmn3wuwab2ffbz52ygc.streamlit.app/",
+      "permanent": false
+    },
+    {
+      "source": "/partsflow/",
+      "destination": "https://partsflow-4enpmn3wuwab2ffbz52ygc.streamlit.app/",
+      "permanent": false
     }
   ],
   "rewrites": [
