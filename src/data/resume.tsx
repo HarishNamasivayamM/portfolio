@@ -70,7 +70,7 @@ export const DATA = {
   location: "Chicago, IL",
   description: "My work spans data pipelines, analytics, machine learning, MLOps, RAG, and agentic workflows, from ingestion and modeling through deployment.",
   summary: "I build data systems that make messy operational data easier to trust, understand, and use.\n\nMy work has covered data engineering, analytics, predictive modeling, and applied AI across financial services and manufacturing. I have worked on everything from data pipelines and reporting to ML workflows and RAG applications. What matters to me is building something that works well, can be maintained, and is actually useful to the people using it.",
-  avatarUrl: "",
+  avatarUrl: "/me.jpg",
   heroHighlights: [
     { label: "IEEE Research", kind: "credential" },
     { label: "LA Hacks Challenge Winner", kind: "credential" },
