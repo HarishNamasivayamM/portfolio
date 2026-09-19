@@ -1,5 +1,6 @@
 import BlurFade from "@/components/magicui/blur-fade";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { VerifiedCredentialBadge } from "@/components/verified-credential-badge";
 import type { Education } from "@/data/resume";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
@@ -25,7 +26,10 @@ export default function EducationSection({ entries }: { entries: readonly Educat
                       </Link>
                     ) : education.school}
                   </h3>
-                  <p className="text-base text-muted-foreground">{education.degree}</p>
+                  <p className="flex items-center gap-2 text-base text-muted-foreground">
+                    {education.degree}
+                    {education.verificationUrl && <VerifiedCredentialBadge href={education.verificationUrl} />}
+                  </p>
                   {education.field && <p className="text-sm text-muted-foreground">{education.field}</p>}
                   {education.affiliatedCollege && <p className="text-sm text-muted-foreground">Affiliated college: {education.affiliatedCollege}</p>}
                   {education.gpa && <p className="text-sm text-muted-foreground">GPA: {education.gpa}</p>}

@@ -1,6 +1,8 @@
 import BlurFade from "@/components/magicui/blur-fade";
+import { VerifiedCredentialBadge } from "@/components/verified-credential-badge";
 import type { Certification } from "@/data/resume";
 import { ArrowUpRight, Layers3 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { SiGooglecloud } from "react-icons/si";
 
@@ -27,13 +29,14 @@ export default function CertificationsSection({
             const content = (
               <>
                 <div className="flex min-w-0 items-center gap-3">
-                  <div className={certification.issuer === "Google Cloud" ? "flex size-11 shrink-0 items-center justify-center rounded-full border border-analytics/20 bg-analytics/5 text-analytics dark:bg-analytics/10" : "flex size-11 shrink-0 items-center justify-center rounded-full border border-primary/20 bg-primary/5 text-primary dark:bg-primary/10"} aria-hidden="true">
-                    {certification.issuer === "Google Cloud" ? <SiGooglecloud className="size-5" /> : <Layers3 className="size-5" />}
+                  <div className={certification.logoUrl ? "flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-border/70 bg-background p-0.5" : certification.issuer === "Google Cloud" ? "flex size-11 shrink-0 items-center justify-center rounded-full border border-analytics/20 bg-analytics/5 text-analytics dark:bg-analytics/10" : "flex size-11 shrink-0 items-center justify-center rounded-full border border-primary/20 bg-primary/5 text-primary dark:bg-primary/10"} aria-hidden="true">
+                    {certification.logoUrl ? <Image src={certification.logoUrl} alt="" width={48} height={48} className="size-full object-contain" /> : certification.issuer === "Google Cloud" ? <SiGooglecloud className="size-5" /> : <Layers3 className="size-5" />}
                   </div>
                   <div className="flex min-w-0 flex-col gap-0.5">
                     <h3 className="flex items-center gap-2 text-base font-semibold leading-tight">
                       {certification.name}
                       {certification.href && <ArrowUpRight className="size-3.5 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" aria-hidden="true" />}
+                      {certification.href && <VerifiedCredentialBadge />}
                     </h3>
                     <p className="font-sans text-sm text-muted-foreground">
                       {certification.issuer}{certification.subtitle && `   ·   ${certification.subtitle}`}

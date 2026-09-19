@@ -18,6 +18,7 @@ import ValueSection from "@/components/section/value-section";
 import { FaMicrosoft } from "react-icons/fa";
 import { SiGooglecloud } from "react-icons/si";
 import { ArrowDown, FileText } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 const BLUR_FADE_DELAY = 0.04;
@@ -25,7 +26,7 @@ const BLUR_FADE_DELAY = 0.04;
 function CertificationHighlight({ certification }: { certification: Certification }) {
   const content = (
     <>
-      {certification.issuer === "Google Cloud" ? <SiGooglecloud className="mt-0.5 size-4 shrink-0 text-[#4285f4]" aria-hidden="true" /> : <FaMicrosoft className="mt-0.5 size-4 shrink-0 text-[#737373] dark:text-[#d4d4d4]" aria-hidden="true" />}
+      {certification.logoUrl ? <Image src={certification.logoUrl} alt="" width={28} height={28} className="mt-0.5 size-7 shrink-0 object-contain" aria-hidden="true" /> : certification.issuer === "Google Cloud" ? <SiGooglecloud className="mt-0.5 size-4 shrink-0 text-[#4285f4]" aria-hidden="true" /> : <FaMicrosoft className="mt-0.5 size-4 shrink-0 text-[#737373] dark:text-[#d4d4d4]" aria-hidden="true" />}
       <div>
         <p className="text-sm font-semibold leading-snug text-foreground">{certification.name}</p>
         <p className="mt-0.5 text-xs text-muted-foreground">{certification.issuer}{certification.subtitle && `   ·   ${certification.subtitle}`}</p>

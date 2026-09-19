@@ -35,7 +35,7 @@ import {
 export interface Skill { name: string; icon: ComponentType<{ className?: string }>; }
 export interface SkillGroup { category: string; technologies: readonly Skill[]; concepts: readonly string[]; icon?: LucideIcon; }
 export interface WorkExperience { company: string; title: string; logoUrl?: string; logo?: ComponentType<{ className?: string }>; location?: string; start: string; end?: string; summary?: string; highlights?: readonly string[]; additionalHighlights?: readonly string[]; }
-export interface Education { school: string; initials: string; degree: string; field?: string; affiliatedCollege?: string; href?: string; logoUrl?: string; start?: string; end?: string; gpa?: string; location?: string; }
+export interface Education { school: string; initials: string; degree: string; field?: string; affiliatedCollege?: string; href?: string; verificationUrl?: string; logoUrl?: string; start?: string; end?: string; gpa?: string; location?: string; }
 export interface Project { canonicalId: string; title: string; categories: readonly string[]; problem: string; build?: string; approach: readonly string[]; scale?: string; outcome: string; metrics?: readonly string[]; venue?: string; badge?: string; date?: string; status?: string; featured?: boolean; research?: boolean; featuredMetric?: string; featuredMetricLabel?: string; websiteUrl?: string; sourceUrl?: string; githubUrl?: string; demoUrl?: string; architectureUrl?: string; caseStudyUrl?: string; paperUrl?: string; coverImage?: string; demoVideo?: string; image?: string; video?: string; }
 export interface PublicationAchievement { type: "Publication" | "Achievement / Award" | "Participation"; title: string; organization: string; date?: string; description: string; href?: string; badge?: string; project?: string; highlight?: string; technologies?: readonly string[]; }
 export interface Certification { name: string; issuer: string; initials: string; subtitle?: string; date?: string; year?: string; credentialId?: string; href?: string; logoUrl?: string; }
@@ -123,12 +123,12 @@ export const DATA = {
     { type: "Participation", title: "HERE Technologies Chicago Hackathon Finalist", organization: "HERE Technologies Chicago Hackathon", date: "2025", badge: "Finalist", description: "Reached the finalist stage with a road sign validation and geospatial intelligence project." },
   ] as PublicationAchievement[],
   education: [
-    { school: "Illinois Institute of Technology", initials: "IIT", location: "Chicago, IL", degree: "Master of Data Science", gpa: "3.81", start: "Aug 2024", end: "May 2026" },
+    { school: "Illinois Institute of Technology", initials: "IIT", location: "Chicago, IL", degree: "Master of Data Science", verificationUrl: "https://www.parchment.com/lp/award/a26f5e4c-8a26-41ab-97ff-6fcee9b868b7", gpa: "3.81", start: "Aug 2024", end: "May 2026" },
     { school: "Anna University", initials: "AU", affiliatedCollege: "St. Joseph's College of Engineering", location: "Chennai, India", degree: "Bachelor of Engineering", field: "Electronics and Communication Engineering", gpa: "3.65", start: "Aug 2018", end: "May 2022" },
   ] as Education[],
   certifications: [
-    { name: "Microsoft Certified: Fabric Data Engineer Associate", issuer: "Microsoft", initials: "MS", subtitle: "DP-700", href: "https://learn.microsoft.com/api/credentials/share/en-us/HarishNamasivayamMuthuswamy-8878/1875FA6C12BD2DBA?sharingId=48FEA08B143E048B" },
-    { name: "Google Cloud Associate Cloud Engineer", issuer: "Google Cloud", initials: "GCP", date: "May 2023", credentialId: "73403999" },
+    { name: "Microsoft Certified: Fabric Data Engineer Associate", issuer: "Microsoft", initials: "MS", subtitle: "DP-700", href: "https://learn.microsoft.com/api/credentials/share/en-us/HarishNamasivayamMuthuswamy-8878/1875FA6C12BD2DBA?sharingId=48FEA08B143E048B", logoUrl: "/fabric-data-engineer-certification.png" },
+    { name: "Google Cloud Associate Cloud Engineer", issuer: "Google Cloud", initials: "GCP", date: "May 2023", credentialId: "73403999", href: "https://www.credly.com/badges/3299bee9-5f7e-4a1c-9070-7bb34c035f96/public_url", logoUrl: "/google-cloud-associate-cloud-engineer.png" },
   ] as Certification[],
   leadership: [
     { organization: "IIT Product Management Club", initials: "PMC", roles: [{ title: "Vice President", start: "Aug 2025", end: "May 2026" }], description: "Co-led the club with the President, supporting product-building activities, AI-oriented initiatives, workshops, case studies, and product work connecting strategy, data, and engineering." },
