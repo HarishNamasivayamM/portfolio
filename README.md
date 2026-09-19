@@ -2,142 +2,68 @@
 
 # Harish Namasivayam Muthuswamy
 
-### Data Engineering · Analytics · Machine Learning · Applied AI
+### Data Engineering · Analytics · ML/AI · MLOps
 
-A modern portfolio showcasing my work across data platforms, analytics, ML/AI, research, cloud, and applied engineering.
+I build reliable data platforms, analytical products, and applied AI systems that turn messy operational data into useful decisions.
 
 <p>
-  <a href="https://portfolio-coral-xi-78.vercel.app/">
-    <img src="https://img.shields.io/badge/Live%20Portfolio-Visit%20Site-2563EB?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Portfolio" />
+  <a href="https://harishmuthuswamy.com/">
+    <img src="https://img.shields.io/badge/Live%20Portfolio-Visit%20Site-2563EB?style=for-the-badge&logo=vercel&logoColor=white" alt="Visit the live portfolio" />
   </a>
   <a href="https://www.linkedin.com/in/harish-namasivayam-muthuswamy/">
-    <img src="https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
+    <img src="https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="Connect on LinkedIn" />
   </a>
   <a href="https://calendly.com/harishnamasivayam/quick-chat">
     <img src="https://img.shields.io/badge/Schedule-a%20Conversation-006BFF?style=for-the-badge&logo=calendar&logoColor=white" alt="Schedule a conversation" />
   </a>
 </p>
 
-<p>
-  <img src="https://img.shields.io/badge/Next.js-16-000000?style=flat-square&logo=nextdotjs&logoColor=white" alt="Next.js 16" />
-  <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=000000" alt="React 19" />
-  <img src="https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/Tailwind%20CSS-4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS 4" />
-  <img src="https://img.shields.io/badge/Vercel-Deployed-000000?style=flat-square&logo=vercel&logoColor=white" alt="Vercel" />
-  <img src="https://img.shields.io/badge/License-MIT-22C55E?style=flat-square" alt="MIT License" />
-</p>
-
 </div>
 
 ---
 
-## Overview
+## About
 
-This repository contains my personal portfolio, built to present my experience, technical depth, selected projects, research, certifications, and contact options in one place.
+I am a Data & Analytics Engineer with 2+ years of experience across financial services and manufacturing. My work spans data pipelines, dimensional modeling, business intelligence, predictive modeling, MLOps, retrieval-augmented generation, and agentic workflows.
 
-The site is designed to stay easy to scan at first glance while still giving technical reviewers the option to dig deeper into project details, skills, architecture, and outcomes.
+The portfolio focuses on practical outcomes: trustworthy data, clear metrics, maintainable systems, and AI applications grounded in useful information.
 
-## Portfolio Highlights
+## Selected work
 
-- **Work Experience** with compact role summaries and expandable details
-- **Technical Skills** with a concise core stack and deeper full-stack views
-- **Projects** with reusable cards, filters, outcomes, and links where available
-- **Research & Recognition** covering IEEE research, hackathons, and awards
-- **Certifications** including Microsoft Fabric and Google Cloud
-- **Section-aware navigation** with a desktop rail and floating bottom dock
-- **Light and dark mode** with responsive behavior across screen sizes
-- **Search and keyboard interactions** for quicker navigation
-- **Contact and scheduling** through email, LinkedIn, GitHub, and Calendly
+- **RetailIQ** — A retail data platform and revenue analytics workflow with dimensional models, transformation layers, and KPI reporting.
+- **PartsFlow** — A demand forecasting and replenishment engine connecting forecast accuracy with inventory outcomes. [Live demo](https://partsflow-4enpmn3wuwab2ffbz52ygc8.streamlit.app/) · [Source](https://github.com/HarishNamasivayamM/PartsFlow)
+- **CampusGuide RAG** — A grounded institutional knowledge assistant using semantic retrieval and document-aware responses. [Live demo](https://campusguide-rag-grounded-institutional-knowledge-assistant-c4v.streamlit.app/) · [Source](https://github.com/HarishNamasivayamM/CampusGuide-RAG-Grounded-Institutional-Knowledge-Assistant)
+- **Bandaid Maps** — An AI-assisted healthcare navigation application that won the Melissa Data Challenge at LA Hacks 2025. [Source](https://github.com/HarishNamasivayamM/bandaid-maps)
 
-## Portfolio Sections
+The portfolio also includes work in churn prediction, financial document retrieval, transit analytics, healthcare cost modeling, crypto-market event analysis, time-series forecasting, and database engineering.
 
-| Section | What it covers |
+## Focus areas
+
+| Area | Focus |
 | --- | --- |
-| About | Short professional introduction and focus areas |
-| Where I Add Value | Data engineering, analytics, ML, and applied AI strengths |
-| Experience | Professional roles and impact |
-| Technical Skills | Core stack plus deeper tools, platforms, and capabilities |
-| Projects | Featured work and supporting project case studies |
-| Research & Recognition | Research outcomes, hackathon wins, and recognition |
-| Education & Certifications | Academic background and professional credentials |
-| Leadership | Community and leadership experience |
-| Contact | Quick message, social links, and scheduling |
+| Data Engineering | Batch and streaming pipelines, ETL/ELT, data modeling, data quality, and lakehouse platforms |
+| Analytics | SQL, KPI design, dashboarding, trend analysis, reconciliation, and root-cause analysis |
+| ML & Data Science | Predictive modeling, forecasting, feature engineering, model evaluation, and risk scoring |
+| Applied AI | RAG, vector search, embeddings, LLM workflows, MCP, and AI agents |
+| Cloud & Delivery | Azure, Microsoft Fabric, Google Cloud, Databricks, Snowflake, Docker, CI/CD, and MLOps |
 
-## Tech Stack
+## Research, credentials, and education
 
-| Area | Technologies |
-| --- | --- |
-| Framework | Next.js 16, React 19 |
-| Language | TypeScript |
-| Styling | Tailwind CSS 4 |
-| UI | shadcn/ui primitives, Magic UI components |
-| Icons | Lucide React, React Icons, local SVG assets |
-| Motion | Motion |
-| Content | Content Collections / MDX infrastructure |
-| Theme | next-themes |
-| Deployment | Vercel |
+- **IEEE research:** Hybrid Transformer and XGBoost Model for Federated IoT Intrusion Detection.
+- **Microsoft Certified:** Fabric Data Engineer Associate (DP-700).
+- **Google Cloud:** Associate Cloud Engineer.
+- **Education:** Master of Data Science, Illinois Institute of Technology.
 
-## Architecture
+## Connect
 
-```text
-src/
-├── app/                  # App Router pages and application structure
-├── components/
-│   ├── section/          # Portfolio sections
-│   ├── ui/               # Reusable UI primitives and local assets
-│   └── magicui/          # Magic UI components and motion utilities
-├── data/
-│   └── resume.tsx        # Centralized portfolio content and typed data
-└── ...
-```
+- **Portfolio:** [harishmuthuswamy.com](https://harishmuthuswamy.com/)
+- **GitHub:** [HarishNamasivayamM](https://github.com/HarishNamasivayamM)
+- **LinkedIn:** [Harish Namasivayam Muthuswamy](https://www.linkedin.com/in/harish-namasivayam-muthuswamy/)
+- **Email:** [harishnamasivayam@gmail.com](mailto:harishnamasivayam@gmail.com)
+- **Schedule a conversation:** [Calendly](https://calendly.com/harishnamasivayam/quick-chat)
 
-Most portfolio content is maintained in `src/data/resume.tsx`, which acts as the main source of truth for experience, skills, projects, research, certifications, contact information, and related metadata.
+## Credits & license
 
-## Run Locally
+This portfolio was started from the [Magic UI portfolio template](https://github.com/magicuidesign/portfolio) and has been substantially adapted for Harish's experience, projects, research, navigation, and content.
 
-### Prerequisites
-
-- Node.js 18+
-- pnpm
-
-### Setup
-
-```bash
-pnpm install
-pnpm dev
-```
-
-Open `http://localhost:3000`.
-
-### Quality checks
-
-```bash
-pnpm exec tsc --noEmit --incremental false
-pnpm lint
-pnpm build
-```
-
-## Design Approach
-
-This portfolio started from the Magic UI portfolio template and has been substantially adapted around my own experience, projects, technical profile, research, navigation, and content structure.
-
-The design is built around a few principles:
-
-- keep the first view easy to scan
-- expose deeper technical detail only when useful
-- prioritize real outcomes over decorative content
-- keep project and skill information structured and consistent
-- preserve accessibility and responsive behavior while adding interaction
-
-## Contact
-
-- **Live Portfolio:** https://portfolio-coral-xi-78.vercel.app/
-- **GitHub:** https://github.com/HarishNamasivayamM
-- **LinkedIn:** https://www.linkedin.com/in/harish-namasivayam-muthuswamy/
-- **Schedule a conversation:** https://calendly.com/harishnamasivayam/quick-chat
-
-## Credits & License
-
-This project retains the existing MIT license and the attribution required by the original Magic UI portfolio template.
-
-See [`LICENSE`](./LICENSE) for details.
+The original MIT license and copyright notice are preserved in [`LICENSE`](./LICENSE).
