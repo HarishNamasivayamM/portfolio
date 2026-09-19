@@ -19,8 +19,8 @@ function buildIndex(): SearchItem[] {
     { title: "Research & Recognition", type: "Section", snippet: "Research publications, awards, and recognition", section: "research" },
     ...(DATA.projects.filter((project) => project.research).map((project) => ({ title: project.title, type: "Research", snippet: project.outcome, section: "research" }))),
     ...DATA.publicationsAchievements.map((entry) => ({ title: entry.title, type: entry.type, snippet: entry.description, section: "research" })),
-    ...DATA.education.map((entry) => ({ title: entry.degree, type: "Education", snippet: entry.school, section: "education" })),
     { title: "Education", type: "Section", snippet: "Academic background and degrees", section: "education" },
+    ...DATA.education.map((entry) => ({ title: entry.degree, type: "Education", snippet: entry.school, section: "education" })),
     { title: "Certifications", type: "Section", snippet: "Professional certifications and credentials", section: "certifications" },
     ...DATA.certifications.map((entry) => ({ title: entry.name, type: "Certification", snippet: `${entry.issuer}${entry.subtitle ? `   ·   ${entry.subtitle}` : ""}`, section: "certifications" })),
     { title: "Leadership", type: "Section", snippet: "Leadership, activities, and community involvement", section: "leadership" },
@@ -37,7 +37,7 @@ export default function SearchCommand() {
   const index = useMemo(() => buildIndex(), []);
   const results = useMemo(() => {
     const normalized = query.trim().toLowerCase();
-    if (!normalized) return index.slice(0, 8);
+    if (!normalized) return index.filter((item) => item.type === "Section");
     return index.filter((item) => `${item.title} ${item.type} ${item.snippet}`.toLowerCase().includes(normalized)).slice(0, 8);
   }, [index, query]);
 
@@ -86,14 +86,15 @@ export default function SearchCommand() {
       <div className="w-full max-w-xl overflow-hidden rounded-xl border border-border bg-card shadow-2xl" onKeyDown={trapFocus}>
         <div className="flex items-center gap-3 border-b border-border px-4">
           <Search className="size-5 shrink-0 text-muted-foreground" aria-hidden="true" />
-          <input ref={inputRef} value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search this portfolio..." className="h-12 min-w-0 flex-1 bg-transparent text-base outline-none placeholder:text-muted-foreground" aria-label="Search portfolio content" />
+          <input ref={inputRef} value={query} onChange={(event) => { setQuery(event.target.value); setSelected(0); }} placeholder="Search this portfolio..." className="h-12 min-w-0 flex-1 bg-transparent text-base outline-none placeholder:text-muted-foreground" aria-label="Search portfolio content" />
           <button type="button" onClick={() => setOpen(false)} className="rounded-md p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" aria-label="Close search"><X className="size-4" /></button>
         </div>
         <div className="max-h-[55vh] overflow-y-auto p-2">
+          <p className="px-3 pb-1 pt-1 text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-muted-foreground">{query.trim() ? "Results" : "Jump to a section"}</p>
           {results.length > 0 ? results.map((item, index) => (
             <button type="button" key={`${item.type}-${item.title}`} onClick={() => goTo(item)} className={`w-full rounded-lg px-3 py-2.5 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${selected === index ? "bg-primary/10" : "hover:bg-muted"}`}>
-              <span className="flex items-center justify-between gap-3"><span className="truncate text-sm font-semibold">{item.title}</span><span className="shrink-0 text-xs text-muted-foreground">{item.type}</span></span>
-              <span className="mt-0.5 block truncate text-xs text-muted-foreground">{item.snippet}</span>
+              <span className="flex items-center justify-between gap-3"><span className="truncate text-sm font-semibold">{item.title}</span>{(query.trim() || item.type !== "Section") && <span className="shrink-0 text-xs text-muted-foreground">{item.type}</span>}</span>
+              {(query.trim() || item.type !== "Section") && <span className="mt-0.5 block truncate text-xs text-muted-foreground">{item.snippet}</span>}
             </button>
           )) : <p className="px-3 py-8 text-center text-sm text-muted-foreground">No matching portfolio content.</p>}
         </div>

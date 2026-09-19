@@ -33,7 +33,7 @@ export default function EducationSection({ entries }: { entries: readonly Educat
                 </div>
                 <span className="shrink-0 text-sm tabular-nums text-muted-foreground sm:text-right">
                   {education.start && education.end
-                    ? `${education.start} to ${education.end}`
+                    ? `${education.start} - ${education.end}`
                     : education.start || education.end}
                 </span>
               </div>
