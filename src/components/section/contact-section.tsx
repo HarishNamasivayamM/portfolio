@@ -20,7 +20,7 @@ export default function ContactSection() {
           <span className="text-xs font-medium uppercase tracking-[0.18em]">or</span>
           <span className="h-px flex-1 bg-border/70" />
         </div>
-        <div className="rounded-xl border border-border/80 bg-background/70 p-4 shadow-sm">
+        <div className="mx-auto w-full max-w-md rounded-xl border border-border/80 bg-background/70 p-4 shadow-sm">
           <div className="flex items-start gap-3">
             <span className="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-lg border border-primary/20 bg-primary/10 text-primary"><CalendarDays className="size-4" aria-hidden="true" /></span>
             <div className="min-w-0">

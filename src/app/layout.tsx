@@ -53,6 +53,11 @@ export const metadata: Metadata = {
     title: `${DATA.name} | Data, Analytics & AI`,
     card: "summary_large_image",
   },
+  icons: {
+    icon: "/me.png",
+    shortcut: "/me.png",
+    apple: "/me.png",
+  },
   verification: {
     google: "",
     yandex: "",

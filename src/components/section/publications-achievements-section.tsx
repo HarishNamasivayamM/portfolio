@@ -84,9 +84,12 @@ function WinnerCard({ entry }: { entry: PublicationAchievement }) {
       )}
       <div id={detailsId} hidden={!expanded} className="mt-3 border-t border-award/15 pt-3 text-sm leading-relaxed text-muted-foreground">
         {entry.project && <p><span className="font-semibold text-foreground">Project:</span> {entry.project}</p>}
+        {entry.problem && <p><span className="font-semibold text-foreground">Problem:</span> {entry.problem}</p>}
+        {entry.build && <p><span className="font-semibold text-foreground">What I built:</span> {entry.build}</p>}
       </div>
-      <div className="mt-auto flex items-center border-t border-award/15 pt-3">
+      <div className="mt-auto flex items-center gap-2 border-t border-award/15 pt-3">
         <DetailsButton expanded={expanded} onClick={() => setExpanded((value) => !value)} controls={detailsId} />
+        {entry.href && <Link href={entry.href} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-8 items-center gap-1.5 rounded-md px-2 text-sm font-medium text-award transition-colors hover:bg-award/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"><ArrowUpRight className="size-4" aria-hidden="true" />View</Link>}
       </div>
     </article>
   );
