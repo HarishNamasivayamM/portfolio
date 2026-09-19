@@ -6,13 +6,13 @@ import { scrollToSection } from "@/lib/scroll-to-section";
 
 const sections = [
   ["about", "About", UserRound],
-  ["value", "Value", Layers3],
   ["experience", "Experience", BriefcaseBusiness],
   ["skills", "Skills", Code2],
   ["projects", "Projects", Layers3],
   ["research", "Research", BookOpen],
   ["education", "Education", GraduationCap],
   ["certifications", "Certifications", BadgeCheck],
+  ["value", "Value", Layers3],
   ["leadership", "Leadership", UsersRound],
   ["contact", "Contact", Mail],
 ] as const;

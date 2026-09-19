@@ -33,20 +33,22 @@ export default function CertificationsSection({
                     {certification.logoUrl ? <Image src={certification.logoUrl} alt="" width={48} height={48} className="size-full object-contain" /> : certification.issuer === "Google Cloud" ? <SiGooglecloud className="size-5" /> : <Layers3 className="size-5" />}
                   </div>
                   <div className="flex min-w-0 flex-col gap-0.5">
-                    <h3 className="flex items-center gap-2 text-base font-semibold leading-tight">
-                      {certification.name}
-                      {certification.href && <ArrowUpRight className="size-3.5 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" aria-hidden="true" />}
-                      {certification.href && <VerifiedCredentialBadge />}
+                    <h3 className="min-w-0 text-base font-semibold leading-tight">
+                      <span>{certification.name}</span>
+                      {certification.href && <span className="ml-2 inline-flex shrink-0 items-center gap-1.5 align-middle whitespace-nowrap">
+                        <ArrowUpRight className="size-3.5 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+                        <VerifiedCredentialBadge />
+                      </span>}
                     </h3>
                     <p className="font-sans text-sm text-muted-foreground">
                       {certification.issuer}{certification.subtitle && `   ·   ${certification.subtitle}`}
                     </p>
-                    {certification.credentialId && <p className="font-sans text-sm text-muted-foreground">Credential ID: {certification.credentialId}</p>}
                   </div>
                 </div>
-                {(certification.year || certification.date) && (
-                  <span className="flex-none text-sm tabular-nums text-muted-foreground sm:text-right">
-                    {certification.year || certification.date}
+                {(certification.year || certification.date || certification.expiresOn) && (
+                  <span className="flex flex-none flex-col gap-0.5 text-sm tabular-nums text-muted-foreground sm:items-end sm:text-right">
+                    {(certification.year || certification.date) && <span>Issued {certification.year || certification.date}</span>}
+                    {certification.expiresOn && <span>Expires {certification.expiresOn}</span>}
                   </span>
                 )}
               </>
@@ -54,7 +56,7 @@ export default function CertificationsSection({
 
             return (
               <BlurFade
-                key={`${certification.issuer}-${certification.name}-${certification.year || certification.date || ""}`}
+                key={`${certification.issuer}-${certification.name}-${certification.year || certification.date || ""}-${certification.expiresOn || ""}`}
                 delay={delay + 0.04}
               >
                 {certification.href ? (

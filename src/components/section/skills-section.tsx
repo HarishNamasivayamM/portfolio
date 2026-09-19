@@ -272,13 +272,6 @@ function DetailGroups({ groups }: { groups: readonly DetailGroup[] }) {
   return <div className="space-y-5">{groups.map((group) => <div key={group.title} className="space-y-2"><h4 className="text-sm font-semibold text-foreground">{group.title}</h4>{group.technologies && <TechnologyChips skills={group.technologies} />}{group.capabilities && <p className="text-sm leading-6 text-muted-foreground">{group.capabilities.join(" · ")}</p>}</div>)}</div>;
 }
 
-function getDialogGroups(category: SkillCategory) {
-  const capabilityGroup = category.featuredCapabilities.length > 0
-    ? [{ title: "Capabilities", capabilities: category.featuredCapabilities }]
-    : [];
-  return [...capabilityGroup, ...category.detailGroups];
-}
-
 function SkillsDetailDialog({ category, dialogRef, onClose }: { category: SkillCategory | null; dialogRef: RefObject<HTMLDialogElement | null>; onClose: () => void }) {
   const handleKeyDown = (event: KeyboardEvent<HTMLDialogElement>) => {
     if (event.key !== "Tab") return;
@@ -291,7 +284,7 @@ function SkillsDetailDialog({ category, dialogRef, onClose }: { category: SkillC
   };
 
   return <dialog ref={dialogRef} onClose={onClose} onKeyDown={handleKeyDown} aria-labelledby="skills-dialog-title" className="m-auto max-h-[min(800px,calc(100vh-2rem))] w-[min(720px,calc(100%-2rem))] rounded-xl border border-border bg-background p-0 text-foreground shadow-2xl backdrop:bg-black/40">
-    {category && <div className="flex max-h-[min(800px,calc(100vh-2rem))] flex-col"><div className="flex items-start justify-between gap-4 border-b border-border px-5 py-4 sm:px-6"><div><p className="mb-1 text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-primary">Full stack</p><h2 id="skills-dialog-title" className="text-lg font-semibold">{category.title}</h2></div><button type="button" autoFocus onClick={() => dialogRef.current?.close()} aria-label="Close skill details" className="rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"><X className="size-5" aria-hidden="true" /></button></div><div className="overflow-y-auto px-5 py-5 sm:px-6"><DetailGroups groups={getDialogGroups(category)} /></div></div>}
+    {category && <div className="flex max-h-[min(800px,calc(100vh-2rem))] flex-col"><div className="flex items-start justify-between gap-4 border-b border-border px-5 py-4 sm:px-6"><div><p className="mb-1 text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-primary">Full stack</p><h2 id="skills-dialog-title" className="text-lg font-semibold">{category.title}</h2></div><button type="button" autoFocus onClick={() => dialogRef.current?.close()} aria-label="Close skill details" className="rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"><X className="size-5" aria-hidden="true" /></button></div><div className="overflow-y-auto px-5 py-5 sm:px-6"><DetailGroups groups={category.featuredCapabilities.length > 0 ? [{ title: "Capabilities", capabilities: category.featuredCapabilities }, ...category.detailGroups] : category.detailGroups} /></div></div>}
   </dialog>;
 }
 

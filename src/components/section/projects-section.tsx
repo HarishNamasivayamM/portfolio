@@ -4,6 +4,7 @@ import BlurFade from "@/components/magicui/blur-fade";
 import { CompactProjectCard, ProjectCard } from "@/components/project-card";
 import SectionHeading from "@/components/section/section-heading";
 import { DATA, type Project } from "@/data/resume";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import { useMemo, useState } from "react";
 
 function FullProjectCard({ project }: { project: Project }) {
@@ -51,15 +52,15 @@ function matchesFilter(project: Project, activeFilter: string) {
 
 export default function ProjectsSection() {
   const [activeFilter, setActiveFilter] = useState("All");
+  const [showMoreProjects, setShowMoreProjects] = useState(false);
   const filters = ["All", "Data Engineering", "Analytics & BI", "Data Science / ML", "Applied AI", "Cloud / Big Data", "Hackathons"];
-  const { featuredProjects, moreProjects } = useMemo(() => ({
-    featuredProjects: activeFilter === "All"
-      ? DATA.projects.filter((project) => project.featured)
-      : DATA.projects.filter((project) => !project.research && matchesFilter(project, activeFilter)).sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured))).slice(0, 4),
-    moreProjects: activeFilter === "All"
-      ? DATA.projects.filter((project) => !project.featured && !project.research)
-      : DATA.projects.filter((project) => !project.research && matchesFilter(project, activeFilter)).sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured))).slice(4),
-  }), [activeFilter]);
+  const { featuredProjects, moreProjects } = useMemo(() => {
+    const matchingProjects = DATA.projects.filter((project) => !project.research && matchesFilter(project, activeFilter));
+    return {
+      featuredProjects: matchingProjects.filter((project) => project.featured),
+      moreProjects: matchingProjects.filter((project) => !project.featured),
+    };
+  }, [activeFilter]);
 
   return (
     <section id="projects" className="flex flex-col gap-8">
@@ -71,7 +72,7 @@ export default function ProjectsSection() {
 
       <div className="flex flex-wrap gap-2" aria-label="Filter projects by category">
         {filters.map((filter) => (
-          <button key={filter} type="button" aria-pressed={activeFilter === filter} onClick={() => setActiveFilter(filter)} className={`min-h-9 rounded-full border px-3 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${activeFilter === filter ? "border-primary/40 bg-primary/10 text-primary" : "border-border/70 bg-background/60 text-muted-foreground hover:bg-muted hover:text-foreground"}`}>
+          <button key={filter} type="button" aria-pressed={activeFilter === filter} onClick={() => { setActiveFilter(filter); setShowMoreProjects(false); }} className={`min-h-9 rounded-full border px-3 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${activeFilter === filter ? "border-primary/40 bg-primary/10 text-primary" : "border-border/70 bg-background/60 text-muted-foreground hover:bg-muted hover:text-foreground"}`}>
             {filter}
           </button>
         ))}
@@ -88,7 +89,14 @@ export default function ProjectsSection() {
         </div>
       </div>}
 
-      {moreProjects.length > 0 && <div className="space-y-4">
+      {moreProjects.length > 0 && <div className="flex justify-center">
+        <button type="button" aria-expanded={showMoreProjects} onClick={() => setShowMoreProjects((visible) => !visible)} className="inline-flex min-h-9 items-center gap-1 rounded-md px-3 text-sm font-medium text-primary transition-colors hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+          {showMoreProjects ? "Hide more projects" : "More projects"}
+          {showMoreProjects ? <ChevronUp className="size-4" aria-hidden="true" /> : <ChevronDown className="size-4" aria-hidden="true" />}
+        </button>
+      </div>}
+
+      {showMoreProjects && moreProjects.length > 0 && <div className="space-y-4">
         <h3 className="text-sm font-semibold uppercase tracking-[0.14em] text-muted-foreground">More Projects</h3>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {moreProjects.map((project, index) => (

@@ -92,7 +92,6 @@ export default function Page() {
           </BlurFade>
         </div>
       </section>
-      <ValueSection />
       <section id="experience" className="flex w-full flex-col gap-5">
         <BlurFade delay={BLUR_FADE_DELAY}>
           <h2 className="text-xl font-bold tracking-tight">Work Experience</h2>
@@ -108,6 +107,7 @@ export default function Page() {
       <PublicationsAchievementsSection entries={DATA.publicationsAchievements} research={DATA.projects.find((project) => project.research)} />
       <EducationSection entries={DATA.education} />
       <CertificationsSection certifications={DATA.certifications} delay={BLUR_FADE_DELAY} />
+      <ValueSection />
       <LeadershipSection entries={DATA.leadership} />
       <GitHubActivitySection config={DATA.githubActivity} />
       <WritingSection personalPostSlugs={DATA.writing.personalPostSlugs} />
