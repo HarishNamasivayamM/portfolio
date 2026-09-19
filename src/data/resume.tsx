@@ -92,7 +92,7 @@ export const DATA = {
     GitHub: { name: "GitHub", url: "https://github.com/HarishNamasivayamM", icon: GitHubIcon, navbar: false },
     LinkedIn: { name: "LinkedIn", url: "https://www.linkedin.com/in/harish-namasivayam-muthuswamy/", icon: Icons.linkedin, navbar: true },
     email: { name: "Email", url: "mailto:harishnamasivayam@gmail.com", icon: Icons.email, navbar: true },
-    Resume: { name: "Resume", url: "", icon: FileTextIcon, navbar: false },
+    Resume: { name: "Resume", url: "/resume.pdf", icon: FileTextIcon, navbar: false },
   } },
   work: [
     { company: "U-Sense.IT srl", title: "Data Analytics & Algorithms Intern", location: "Remote, USA", start: "Mar 2026", end: "May 2026", summary: "Built data-quality analysis, vehicle risk scoring, predictive models, and real-time manufacturing quality monitoring across two production stages.", highlights: ["Analyzed 2,000+ automotive sensor records across two manufacturing stages, identifying 15+ data-quality issues and establishing a cleaner foundation for downstream risk modeling.", "Engineered 10+ tolerance-margin features and a vehicle-level risk score to surface high-risk units before Final Assembly.", "Built and benchmarked Linear Regression, Random Forest, and Gradient Boosting models in scikit-learn, reaching up to approximately 85% prediction accuracy.", "Built a real-time Grafana dashboard tracking quality KPIs, pass/fail rates, and anomaly alerts for manufacturing monitoring."] },
