@@ -268,12 +268,15 @@ function TechnologyChips({ skills, emphasis = "standard" }: { skills: readonly D
   );
 }
 
-function CapabilitySummary({ items }: { items: readonly string[] }) {
-  return <div className="border-t border-border/60 pt-3"><p className="mb-2 text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Capabilities</p><p className="text-sm leading-6 text-muted-foreground">{items.join(" · ")}</p></div>;
-}
-
 function DetailGroups({ groups }: { groups: readonly DetailGroup[] }) {
   return <div className="space-y-5">{groups.map((group) => <div key={group.title} className="space-y-2"><h4 className="text-sm font-semibold text-foreground">{group.title}</h4>{group.technologies && <TechnologyChips skills={group.technologies} />}{group.capabilities && <p className="text-sm leading-6 text-muted-foreground">{group.capabilities.join(" · ")}</p>}</div>)}</div>;
+}
+
+function getDialogGroups(category: SkillCategory) {
+  const capabilityGroup = category.featuredCapabilities.length > 0
+    ? [{ title: "Capabilities", capabilities: category.featuredCapabilities }]
+    : [];
+  return [...capabilityGroup, ...category.detailGroups];
 }
 
 function SkillsDetailDialog({ category, dialogRef, onClose }: { category: SkillCategory | null; dialogRef: RefObject<HTMLDialogElement | null>; onClose: () => void }) {
@@ -288,13 +291,13 @@ function SkillsDetailDialog({ category, dialogRef, onClose }: { category: SkillC
   };
 
   return <dialog ref={dialogRef} onClose={onClose} onKeyDown={handleKeyDown} aria-labelledby="skills-dialog-title" className="m-auto max-h-[min(800px,calc(100vh-2rem))] w-[min(720px,calc(100%-2rem))] rounded-xl border border-border bg-background p-0 text-foreground shadow-2xl backdrop:bg-black/40">
-    {category && <div className="flex max-h-[min(800px,calc(100vh-2rem))] flex-col"><div className="flex items-start justify-between gap-4 border-b border-border px-5 py-4 sm:px-6"><div><p className="mb-1 text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-primary">Full stack</p><h2 id="skills-dialog-title" className="text-lg font-semibold">{category.title}</h2></div><button type="button" autoFocus onClick={() => dialogRef.current?.close()} aria-label="Close skill details" className="rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"><X className="size-5" aria-hidden="true" /></button></div><div className="overflow-y-auto px-5 py-5 sm:px-6"><DetailGroups groups={category.detailGroups} /></div></div>}
+    {category && <div className="flex max-h-[min(800px,calc(100vh-2rem))] flex-col"><div className="flex items-start justify-between gap-4 border-b border-border px-5 py-4 sm:px-6"><div><p className="mb-1 text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-primary">Full stack</p><h2 id="skills-dialog-title" className="text-lg font-semibold">{category.title}</h2></div><button type="button" autoFocus onClick={() => dialogRef.current?.close()} aria-label="Close skill details" className="rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"><X className="size-5" aria-hidden="true" /></button></div><div className="overflow-y-auto px-5 py-5 sm:px-6"><DetailGroups groups={getDialogGroups(category)} /></div></div>}
   </dialog>;
 }
 
 function SkillCard({ category, onOpen }: { category: SkillCategory; onOpen: (category: SkillCategory, trigger: HTMLButtonElement) => void }) {
   const Icon = category.icon;
-  return <div className="flex h-full flex-col rounded-xl border border-border bg-card p-4 sm:p-5"><h3 className="mb-3 flex items-center gap-2 text-base font-semibold leading-tight">{Icon && <Icon className="size-[1.125rem] shrink-0 text-primary" aria-hidden="true" />}{category.title}</h3><div className="mb-2 text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Technologies</div><TechnologyChips skills={category.featuredTools} /><div className="mt-4"><CapabilitySummary items={category.featuredCapabilities} /></div><button type="button" onClick={(event) => onOpen(category, event.currentTarget)} aria-haspopup="dialog" aria-label={`View full stack for ${category.title}`} className="mt-auto flex w-fit items-center gap-1 pt-4 text-sm font-medium text-primary transition-colors hover:text-primary/75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"><span>View full stack</span><ChevronRight className="size-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" /></button></div>;
+  return <div className="flex h-full flex-col rounded-xl border border-border bg-card p-4 sm:p-5"><h3 className="mb-3 flex items-center gap-2 text-base font-semibold leading-tight">{Icon && <Icon className="size-[1.125rem] shrink-0 text-primary" aria-hidden="true" />}{category.title}</h3><div className="mb-2 text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Technologies</div><TechnologyChips skills={category.featuredTools} /><button type="button" onClick={(event) => onOpen(category, event.currentTarget)} aria-haspopup="dialog" aria-label={`View full stack for ${category.title}`} className="mt-auto flex w-fit items-center gap-1 pt-4 text-sm font-medium text-primary transition-colors hover:text-primary/75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"><span>View full stack</span><ChevronRight className="size-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" /></button></div>;
 }
 
 function SupportingCard({ category, onOpen }: { category: SkillCategory; onOpen: (category: SkillCategory, trigger: HTMLButtonElement) => void }) {
