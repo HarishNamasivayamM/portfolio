@@ -8,11 +8,35 @@ import { ArrowUpRight, BarChart3, BookOpen, Boxes, ChevronDown, Database, Map, M
 import Link from "next/link";
 import { createElement, useEffect, useId, useRef, useState, type KeyboardEvent, type RefObject } from "react";
 
-function ProjectImage({ src, alt }: { src: string; alt: string }) {
+function ProjectImage({ src, alt, title }: { src: string; alt: string; title: string }) {
   const [imageError, setImageError] = useState(false);
 
   if (imageError) return null;
-  return <img loading="lazy" src={src} alt={alt} className="aspect-[3.5] w-full object-cover" onError={() => setImageError(true)} />;
+  return <div className="relative aspect-[3.5] w-full overflow-hidden border-b border-border/70">
+    <img loading="lazy" src={src} alt={alt} className="size-full object-cover" onError={() => setImageError(true)} />
+    <div className="absolute inset-0 flex items-center justify-center bg-background/5 px-4 text-center">
+      <span className="rounded-md bg-background/35 px-3 py-1 text-xl font-semibold tracking-tight text-primary backdrop-blur-[1px] sm:text-2xl">{title.split("  -  ")[0]}</span>
+    </div>
+  </div>;
+}
+
+type BannerTone = "blue" | "violet" | "slate" | "amber";
+
+const bannerToneClasses: Record<BannerTone, string> = {
+  blue: "bg-[#f2f7ff] dark:bg-[#202a39] text-[#245a8a] dark:text-[#9cc9ef] [--banner-muted:#526779] dark:[--banner-muted:#c3d4e3]",
+  violet: "bg-[#f7f3ff] dark:bg-[#2a2538] text-[#6246a8] dark:text-[#c6b5f3] [--banner-muted:#6b6280] dark:[--banner-muted:#d0c8e3]",
+  slate: "bg-[#f3f5f7] dark:bg-[#252a31] text-[#3c536b] dark:text-[#a9c1d8] [--banner-muted:#5e6b78] dark:[--banner-muted:#c2ccd6]",
+  amber: "bg-[#fbf7ed] dark:bg-[#302a20] text-[#8a5a18] dark:text-[#e2bf78] [--banner-muted:#766751] dark:[--banner-muted:#d4c5a9]",
+};
+
+function ProjectBanner({ title, tone = "blue" }: { title: string; tone?: BannerTone }) {
+  const [bannerTitle, bannerSubtitle] = title.split("  -  ");
+  return <div className={cn("relative flex aspect-[3.5] items-center justify-center overflow-hidden border-b border-border/70 px-4 text-center", bannerToneClasses[tone])}>
+    <div className="max-w-[90%]">
+      <p className="text-2xl font-semibold leading-tight tracking-tight">{bannerTitle}</p>
+      {bannerSubtitle && <p className="mt-1.5 text-xs leading-relaxed text-[var(--banner-muted)]">{bannerSubtitle}</p>}
+    </div>
+  </div>;
 }
 
 function projectIcon(categories: readonly string[]) {
@@ -50,6 +74,8 @@ interface Props {
   caseStudyUrl?: string;
   paperUrl?: string;
   coverImage?: string;
+  banner?: boolean;
+  bannerTone?: BannerTone;
   demoVideo?: string;
   image?: string;
   video?: string;
@@ -176,7 +202,7 @@ function ProjectDetailsDialog({ id, dialogRef, title, categories, badge, problem
   </dialog>;
 }
 
-export function ProjectCard({ title, categories, problem, build, approach, scale, outcome, metrics, venue, badge, date, status, research, featuredMetric, featuredMetricLabel, websiteUrl, sourceUrl, githubUrl, demoUrl, architectureUrl, caseStudyUrl, paperUrl, coverImage, demoVideo, image, video, className }: Props) {
+export function ProjectCard({ title, categories, problem, build, approach, scale, outcome, metrics, venue, badge, date, status, research, featuredMetric, featuredMetricLabel, websiteUrl, sourceUrl, githubUrl, demoUrl, architectureUrl, caseStudyUrl, paperUrl, coverImage, banner, bannerTone, demoVideo, image, video, className }: Props) {
   const [expanded, setExpanded] = useState(false);
   const detailsId = useId();
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -185,7 +211,7 @@ export function ProjectCard({ title, categories, problem, build, approach, scale
   const closeDetails = () => { setExpanded(false); requestAnimationFrame(() => triggerRef.current?.focus()); };
 
   return <article className={cn("flex h-full flex-col overflow-hidden rounded-xl border bg-card text-card-foreground transition-colors", research ? "border-research/30 bg-research/[0.025] hover:border-research/45 dark:bg-research/[0.06]" : "border-border hover:border-primary/25 hover:bg-primary/[0.015]", className)}>
-    {demoVideo || video ? <video src={demoVideo || video} muted playsInline preload="none" className="aspect-[3.5] w-full object-cover" /> : coverImage || image ? <ProjectImage src={coverImage || image || ""} alt={`${title} project preview`} /> : <ProjectCover categories={categories} title={title} />}
+    {banner ? <ProjectBanner title={title} tone={bannerTone} /> : demoVideo || video ? <video src={demoVideo || video} muted playsInline preload="none" className="aspect-[3.5] w-full object-cover" /> : coverImage || image ? <ProjectImage src={coverImage || image || ""} alt={`${title} project preview`} title={title} /> : <ProjectCover categories={categories} title={title} />}
     <div className="flex flex-1 flex-col gap-2.5 p-3.5 sm:p-4">
       <div className="space-y-2">
         <ProjectMetadata categories={categories} badge={badge} research={research} />

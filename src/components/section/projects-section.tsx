@@ -33,6 +33,8 @@ function FullProjectCard({ project }: { project: Project }) {
       date={project.date}
       status={project.status}
       coverImage={project.coverImage}
+      banner={project.banner}
+      bannerTone={project.bannerTone}
       demoVideo={project.demoVideo}
       image={project.image}
       video={project.video}
